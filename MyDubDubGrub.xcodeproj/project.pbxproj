@@ -8,17 +8,28 @@
 
 /* Begin PBXBuildFile section */
 		66C926E92C307A3B0073FD9D /* MyDubDubGrubApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C926E82C307A3B0073FD9D /* MyDubDubGrubApp.swift */; };
-		66C926EB2C307A3B0073FD9D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C926EA2C307A3B0073FD9D /* ContentView.swift */; };
 		66C926ED2C307A3B0073FD9D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66C926EC2C307A3B0073FD9D /* Assets.xcassets */; };
 		66C926F02C307A3B0073FD9D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66C926EF2C307A3B0073FD9D /* Preview Assets.xcassets */; };
+		66C926F82C3094F40073FD9D /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66C926F72C3094F40073FD9D /* Colors.xcassets */; };
+		66C926FB2C3095C60073FD9D /* Color+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C926FA2C3095C60073FD9D /* Color+Ext.swift */; };
+		66C926FD2C30B6FF0073FD9D /* AppTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C926FC2C30B6FF0073FD9D /* AppTabView.swift */; };
+		66C926FF2C30B7500073FD9D /* LocationMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C926FE2C30B7500073FD9D /* LocationMapView.swift */; };
+		66C927012C30B77E0073FD9D /* LocationListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C927002C30B77E0073FD9D /* LocationListView.swift */; };
+		66C927032C30B7960073FD9D /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C927022C30B7960073FD9D /* ProfileView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		66C926E52C307A3B0073FD9D /* MyDubDubGrub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyDubDubGrub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		66C926E82C307A3B0073FD9D /* MyDubDubGrubApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDubDubGrubApp.swift; sourceTree = "<group>"; };
-		66C926EA2C307A3B0073FD9D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		66C926EC2C307A3B0073FD9D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		66C926EF2C307A3B0073FD9D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		66C926F62C307BBE0073FD9D /* MyDubDubGrub.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyDubDubGrub.entitlements; sourceTree = "<group>"; };
+		66C926F72C3094F40073FD9D /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		66C926FA2C3095C60073FD9D /* Color+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Ext.swift"; sourceTree = "<group>"; };
+		66C926FC2C30B6FF0073FD9D /* AppTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabView.swift; sourceTree = "<group>"; };
+		66C926FE2C30B7500073FD9D /* LocationMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMapView.swift; sourceTree = "<group>"; };
+		66C927002C30B77E0073FD9D /* LocationListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationListView.swift; sourceTree = "<group>"; };
+		66C927022C30B7960073FD9D /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,9 +62,15 @@
 		66C926E72C307A3B0073FD9D /* MyDubDubGrub */ = {
 			isa = PBXGroup;
 			children = (
+				66C926F62C307BBE0073FD9D /* MyDubDubGrub.entitlements */,
 				66C926E82C307A3B0073FD9D /* MyDubDubGrubApp.swift */,
-				66C926EA2C307A3B0073FD9D /* ContentView.swift */,
+				66C926FC2C30B6FF0073FD9D /* AppTabView.swift */,
+				66C926FE2C30B7500073FD9D /* LocationMapView.swift */,
+				66C927002C30B77E0073FD9D /* LocationListView.swift */,
+				66C927022C30B7960073FD9D /* ProfileView.swift */,
+				66C926F92C3095B10073FD9D /* Extensions */,
 				66C926EC2C307A3B0073FD9D /* Assets.xcassets */,
+				66C926F72C3094F40073FD9D /* Colors.xcassets */,
 				66C926EE2C307A3B0073FD9D /* Preview Content */,
 			);
 			path = MyDubDubGrub;
@@ -65,6 +82,14 @@
 				66C926EF2C307A3B0073FD9D /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		66C926F92C3095B10073FD9D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				66C926FA2C3095C60073FD9D /* Color+Ext.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -125,6 +150,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				66C926F82C3094F40073FD9D /* Colors.xcassets in Resources */,
 				66C926F02C307A3B0073FD9D /* Preview Assets.xcassets in Resources */,
 				66C926ED2C307A3B0073FD9D /* Assets.xcassets in Resources */,
 			);
@@ -137,8 +163,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				66C926EB2C307A3B0073FD9D /* ContentView.swift in Sources */,
 				66C926E92C307A3B0073FD9D /* MyDubDubGrubApp.swift in Sources */,
+				66C926FF2C30B7500073FD9D /* LocationMapView.swift in Sources */,
+				66C927012C30B77E0073FD9D /* LocationListView.swift in Sources */,
+				66C926FD2C30B6FF0073FD9D /* AppTabView.swift in Sources */,
+				66C927032C30B7960073FD9D /* ProfileView.swift in Sources */,
+				66C926FB2C3095C60073FD9D /* Color+Ext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -197,7 +227,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -254,7 +284,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -269,6 +299,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MyDubDubGrub/MyDubDubGrub.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MyDubDubGrub/Preview Content\"";
@@ -287,6 +318,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tazmancoder.MyDubDubGrub;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -298,6 +333,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MyDubDubGrub/MyDubDubGrub.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MyDubDubGrub/Preview Content\"";
@@ -316,6 +352,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tazmancoder.MyDubDubGrub;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
