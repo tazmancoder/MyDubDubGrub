@@ -16,6 +16,7 @@
 		66C926FF2C30B7500073FD9D /* LocationMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C926FE2C30B7500073FD9D /* LocationMapView.swift */; };
 		66C927012C30B77E0073FD9D /* LocationListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C927002C30B77E0073FD9D /* LocationListView.swift */; };
 		66C927032C30B7960073FD9D /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C927022C30B7960073FD9D /* ProfileView.swift */; };
+		66C927052C30D3610073FD9D /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C927042C30D3610073FD9D /* AvatarView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		66C926FE2C30B7500073FD9D /* LocationMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMapView.swift; sourceTree = "<group>"; };
 		66C927002C30B77E0073FD9D /* LocationListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationListView.swift; sourceTree = "<group>"; };
 		66C927022C30B7960073FD9D /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		66C927042C30D3610073FD9D /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 				66C926FC2C30B6FF0073FD9D /* AppTabView.swift */,
 				66C926FE2C30B7500073FD9D /* LocationMapView.swift */,
 				66C927002C30B77E0073FD9D /* LocationListView.swift */,
+				66C927042C30D3610073FD9D /* AvatarView.swift */,
 				66C927022C30B7960073FD9D /* ProfileView.swift */,
 				66C926F92C3095B10073FD9D /* Extensions */,
 				66C926EC2C307A3B0073FD9D /* Assets.xcassets */,
@@ -165,6 +168,7 @@
 			files = (
 				66C926E92C307A3B0073FD9D /* MyDubDubGrubApp.swift in Sources */,
 				66C926FF2C30B7500073FD9D /* LocationMapView.swift in Sources */,
+				66C927052C30D3610073FD9D /* AvatarView.swift in Sources */,
 				66C927012C30B77E0073FD9D /* LocationListView.swift in Sources */,
 				66C926FD2C30B6FF0073FD9D /* AppTabView.swift in Sources */,
 				66C927032C30B7960073FD9D /* ProfileView.swift in Sources */,
