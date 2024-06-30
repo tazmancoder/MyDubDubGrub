@@ -29,11 +29,11 @@ struct LocationListView: View {
 							
 							// Avatar Images
 							HStack {
-								AvatarView()
-								AvatarView()
-								AvatarView()
-								AvatarView()
-								AvatarView()
+								AvatarView(size: 35)
+								AvatarView(size: 35)
+								AvatarView(size: 35)
+								AvatarView(size: 35)
+								AvatarView(size: 35)
 							}
 						}
 						.padding(.leading, 8)
