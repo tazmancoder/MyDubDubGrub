@@ -15,19 +15,22 @@ struct LocationDetailView: View {
 		GridItem(.flexible())
 	]
 	
+	// MARK: - Properties
+	var location: DDGLocation
+	
     var body: some View {
 		VStack(spacing: 16) {
 			BannerImageView(imageName: "default-banner-asset")
 			
 			// Location Address
 			HStack {
-				AddressView(address: "123 Main Street")
+				AddressView(address: location.address)
 				Spacer()
 			}
 			.padding(.horizontal)
 			
 			// Location Description
-			DescriptionView(text: "Craving authentic South of the Border flavors? Our restaurant specializes in delicious tacos, burritos, and a variety of other Mexican-inspired dishes. Come in and treat yourself to a culinary fiesta!")
+			DescriptionView(text: location.description)
 			
 			// List of action buttons
 			ZStack {
@@ -42,7 +45,7 @@ struct LocationDetailView: View {
 						LocationActionButton(imageColor: .brandPrimary, imageName: "location.fill")
 					}
 					
-					Link(destination: URL(string: "https://www.apple.com")!, label: {
+					Link(destination: URL(string: location.websiteURL)!, label: {
 						LocationActionButton(imageColor: .brandPrimary, imageName: "network")
 					})
 					
@@ -87,13 +90,13 @@ struct LocationDetailView: View {
 			
 			Spacer()
 		}
-		.navigationTitle("Location Name")
+		.navigationTitle(location.name)
 		.navigationBarTitleDisplayMode(.inline)
     }
 }
 
 #Preview {
-    LocationDetailView()
+	LocationDetailView(location: DDGLocation(record: MockData.location))
 }
 
 // MARK: - Sub Views
