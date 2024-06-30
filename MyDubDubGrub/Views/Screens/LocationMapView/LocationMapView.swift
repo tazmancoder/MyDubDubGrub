@@ -13,13 +13,18 @@ import SwiftUI
 import MapKit
 
 struct LocationMapView: View {
+	// MARK: - Environment Objects
+	@EnvironmentObject private var locationManager: LocationManager
+	
 	// MARK: - State
 	@StateObject private var viewModel = LocationMapViewModel()
 	
     var body: some View {
 		ZStack {
-			Map(coordinateRegion: $viewModel.region)
-				.ignoresSafeArea()
+			Map(coordinateRegion: $viewModel.region, annotationItems: locationManager.locations) { location in
+				MapMarker(coordinate: location.location.coordinate, tint: .brandPrimary)
+			}
+			.ignoresSafeArea()
 			
 			VStack {
 				LogoView()
@@ -31,7 +36,9 @@ struct LocationMapView: View {
 			Alert(title: alertItem.title, message: alertItem.message, dismissButton: alertItem.dismissButton)
 		})
 		.onAppear {
-			viewModel.getLocations()
+			if locationManager.locations.isEmpty {
+				viewModel.getLocations(for: locationManager)
+			}
 		}
     }
 }

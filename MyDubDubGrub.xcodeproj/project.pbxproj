@@ -32,6 +32,7 @@
 		66DBAC762C31C1910023B503 /* CKRecord+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66DBAC752C31C1910023B503 /* CKRecord+Ext.swift */; };
 		66FFB9D22C31D37F00E0FEDE /* AlertItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FFB9D12C31D37F00E0FEDE /* AlertItem.swift */; };
 		66FFB9D52C3209D000E0FEDE /* LocationMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FFB9D42C3209D000E0FEDE /* LocationMapViewModel.swift */; };
+		66FFB9D82C32141900E0FEDE /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FFB9D72C32141900E0FEDE /* LocationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +63,7 @@
 		66DBAC752C31C1910023B503 /* CKRecord+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CKRecord+Ext.swift"; sourceTree = "<group>"; };
 		66FFB9D12C31D37F00E0FEDE /* AlertItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertItem.swift; sourceTree = "<group>"; };
 		66FFB9D42C3209D000E0FEDE /* LocationMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMapViewModel.swift; sourceTree = "<group>"; };
+		66FFB9D72C32141900E0FEDE /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,8 +181,8 @@
 		66DBAC702C31BA650023B503 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				66FFB9D62C3213B800E0FEDE /* Managers */,
 				66C926F92C3095B10073FD9D /* Extensions */,
-				66DBAC712C31BA9D0023B503 /* CloudKitManager.swift */,
 				66DBAC732C31BBCF0023B503 /* Constants.swift */,
 				66FFB9D12C31D37F00E0FEDE /* AlertItem.swift */,
 			);
@@ -194,6 +196,15 @@
 				66C926FE2C30B7500073FD9D /* LocationMapView.swift */,
 			);
 			path = LocationMapView;
+			sourceTree = "<group>";
+		};
+		66FFB9D62C3213B800E0FEDE /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				66DBAC712C31BA9D0023B503 /* CloudKitManager.swift */,
+				66FFB9D72C32141900E0FEDE /* LocationManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -274,6 +285,7 @@
 				66C926FF2C30B7500073FD9D /* LocationMapView.swift in Sources */,
 				66DBAC6F2C31B0090023B503 /* MockData.swift in Sources */,
 				66C927092C30D9390073FD9D /* LocationActionButton.swift in Sources */,
+				66FFB9D82C32141900E0FEDE /* LocationManager.swift in Sources */,
 				66DBAC6B2C31A6780023B503 /* DDGLocation.swift in Sources */,
 				66FFB9D22C31D37F00E0FEDE /* AlertItem.swift in Sources */,
 				66C927072C30D4C50073FD9D /* LocationDetailView.swift in Sources */,

@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct MyDubDubGrubApp: App {
+	// MARK: - Observable Objects
+	let locationManager = LocationManager()
+	
     var body: some Scene {
         WindowGroup {
             AppTabView()
+				.environmentObject(locationManager)
         }
     }
 }

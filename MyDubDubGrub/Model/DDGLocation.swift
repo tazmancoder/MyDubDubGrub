@@ -7,7 +7,7 @@
 
 import CloudKit
 
-struct DDGLocation {
+struct DDGLocation: Identifiable {
 	// MARK: - Stringly typed constants
 	static let kName = "name"
 	static let kDescription = "description"
@@ -19,7 +19,7 @@ struct DDGLocation {
 	static let kPhoneNumber = "phoneNumber"
 	
 	// MARK: - Data Properties
-	let ckRecordID: CKRecord.ID
+	let id: CKRecord.ID
 	let name: String
 	let description: String
 	let squareAsset: CKAsset!
@@ -30,7 +30,7 @@ struct DDGLocation {
 	let phoneNumber: String
 	
 	init(record: CKRecord) {
-		ckRecordID = record.recordID
+		id = record.recordID
 		name = record[DDGLocation.kName] as? String ?? "N/A"
 		description = record[DDGLocation.kDescription] as? String ?? "N/A"
 		squareAsset = record[DDGLocation.kSquareAsset] as? CKAsset
