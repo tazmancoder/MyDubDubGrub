@@ -31,6 +31,7 @@
 		66DBAC742C31BBCF0023B503 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66DBAC732C31BBCF0023B503 /* Constants.swift */; };
 		66DBAC762C31C1910023B503 /* CKRecord+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66DBAC752C31C1910023B503 /* CKRecord+Ext.swift */; };
 		66FFB9D22C31D37F00E0FEDE /* AlertItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FFB9D12C31D37F00E0FEDE /* AlertItem.swift */; };
+		66FFB9D52C3209D000E0FEDE /* LocationMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FFB9D42C3209D000E0FEDE /* LocationMapViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +61,7 @@
 		66DBAC732C31BBCF0023B503 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		66DBAC752C31C1910023B503 /* CKRecord+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CKRecord+Ext.swift"; sourceTree = "<group>"; };
 		66FFB9D12C31D37F00E0FEDE /* AlertItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertItem.swift; sourceTree = "<group>"; };
+		66FFB9D42C3209D000E0FEDE /* LocationMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMapViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,8 +89,8 @@
 		6602258F2C310B9C00B0EBE4 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				66FFB9D32C3209AE00E0FEDE /* LocationMapView */,
 				66C926FC2C30B6FF0073FD9D /* AppTabView.swift */,
-				66C926FE2C30B7500073FD9D /* LocationMapView.swift */,
 				66C927002C30B77E0073FD9D /* LocationListView.swift */,
 				66C927062C30D4C50073FD9D /* LocationDetailView.swift */,
 				66C927022C30B7960073FD9D /* ProfileView.swift */,
@@ -185,6 +187,15 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		66FFB9D32C3209AE00E0FEDE /* LocationMapView */ = {
+			isa = PBXGroup;
+			children = (
+				66FFB9D42C3209D000E0FEDE /* LocationMapViewModel.swift */,
+				66C926FE2C30B7500073FD9D /* LocationMapView.swift */,
+			);
+			path = LocationMapView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -256,6 +267,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				66FFB9D52C3209D000E0FEDE /* LocationMapViewModel.swift in Sources */,
 				66C926E92C307A3B0073FD9D /* MyDubDubGrubApp.swift in Sources */,
 				66DBAC742C31BBCF0023B503 /* Constants.swift in Sources */,
 				66C9270B2C30E0430073FD9D /* FirstNameAvatarView.swift in Sources */,
