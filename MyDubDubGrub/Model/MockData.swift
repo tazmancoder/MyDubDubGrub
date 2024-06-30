@@ -11,7 +11,7 @@ struct MockData {
 	// MARK: - Location Data
 	
 	static var location: CKRecord {
-		let record = CKRecord(recordType: "DDGLocation")
+		let record = CKRecord(recordType: RecordType.location)
 		
 		record[DDGLocation.kName] = "Sean's Bar and Grill"
 		record[DDGLocation.kAddress] = "1334 Main Street, Ste: 12A"
@@ -24,7 +24,7 @@ struct MockData {
 	}
 
 	static var location1: CKRecord {
-		let record = CKRecord(recordType: "DDGLocation")
+		let record = CKRecord(recordType: RecordType.location)
 		
 		record[DDGLocation.kName] = "Burger Haven"
 		record[DDGLocation.kAddress] = "309 E 100 S"
@@ -37,7 +37,7 @@ struct MockData {
 	}
 
 	static var location2: CKRecord {
-		let record = CKRecord(recordType: "DDGLocation")
+		let record = CKRecord(recordType: RecordType.location)
 		
 		record[DDGLocation.kName] = "A Taste of the Ocean"
 		record[DDGLocation.kAddress] = "470 Water Wheel Lane"
