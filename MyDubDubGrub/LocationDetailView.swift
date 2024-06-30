@@ -16,67 +16,68 @@ struct LocationDetailView: View {
 	]
 	
     var body: some View {
-		NavigationView {
-			VStack(spacing: 16) {
-				Image(.defaultBannerAsset)
-					.resizable()
-					.scaledToFill()
-					.frame(height: 120)
+		VStack(spacing: 16) {
+			Image(.defaultBannerAsset)
+				.resizable()
+				.scaledToFill()
+				.frame(height: 120)
+			
+			// Location Address
+			HStack {
+				Label("123 Main Street", systemImage: "mappin.and.ellipse")
+					.font(.caption)
+					.foregroundColor(.secondary)
 				
-				// Location Address
-				HStack {
-					Label("123 Main Street", systemImage: "mappin.and.ellipse")
-						.font(.caption)
-						.foregroundColor(.secondary)
-					
-					Spacer()
-				}
+				Spacer()
+			}
+			.padding(.horizontal)
+			
+			// Location Description
+			Text("Craving authentic South of the Border flavors? Our restaurant specializes in delicious tacos, burritos, and a variety of other Mexican-inspired dishes. Come in and treat yourself to a culinary fiesta!")
+				.lineLimit(4)
+				.minimumScaleFactor(0.75)
+				.multilineTextAlignment(.leading)
+				.frame(height: 70)
 				.padding(.horizontal)
-				
-				// Location Description
-				Text("Craving authentic South of the Border flavors? Our restaurant specializes in delicious tacos, burritos, and a variety of other Mexican-inspired dishes. Come in and treat yourself to a culinary fiesta!")
-					.lineLimit(4)
-					.multilineTextAlignment(.leading)
-					.minimumScaleFactor(0.75)
-					.padding(.horizontal)
-				
-				// List of action buttons
-				ZStack {
-					Capsule()
-						.frame(height: 80)
-						.foregroundColor(Color(.secondarySystemBackground))
-					HStack(spacing: 20) {
-						Button {
-							
-						} label: {
-							LocationActionButton(imageColor: .brandPrimary, imageName: "location.fill")
-						}
+			
+			// List of action buttons
+			ZStack {
+				Capsule()
+					.frame(height: 80)
+					.foregroundColor(Color(.secondarySystemBackground))
+				HStack(spacing: 20) {
+					Button {
 						
-						Link(destination: URL(string: "https://www.apple.com")!, label: {
-							LocationActionButton(imageColor: .brandPrimary, imageName: "network")
-						})
+					} label: {
+						LocationActionButton(imageColor: .brandPrimary, imageName: "location.fill")
+					}
+					
+					Link(destination: URL(string: "https://www.apple.com")!, label: {
+						LocationActionButton(imageColor: .brandPrimary, imageName: "network")
+					})
+					
+					Button {
 						
-						Button {
-							
-						} label: {
-							LocationActionButton(imageColor: .brandPrimary, imageName: "phone.fill")
-						}
+					} label: {
+						LocationActionButton(imageColor: .brandPrimary, imageName: "phone.fill")
+					}
+					
+					Button {
 						
-						Button {
-							
-						} label: {
-							LocationActionButton(imageColor: .brandPrimary, imageName: "person.fill.checkmark")
-						}
+					} label: {
+						LocationActionButton(imageColor: .brandPrimary, imageName: "person.fill.checkmark")
 					}
 				}
-				.padding(.horizontal)
-				
-				
-				// Who's at this location
-				Text("Who's Here")
-					.bold()
-					.font(.title2)
-				
+			}
+			.padding(.horizontal)
+			
+			
+			// Who's at this location
+			Text("Who's Here")
+				.bold()
+				.font(.title2)
+			
+			ScrollView(showsIndicators: false) {
 				LazyVGrid(columns: columns, content: {
 					FirstNameAvatarView(firstName: "Sean")
 					FirstNameAvatarView(firstName: "Mark")
@@ -87,13 +88,17 @@ struct LocationDetailView: View {
 					FirstNameAvatarView(firstName: "Devon")
 					FirstNameAvatarView(firstName: "Cheyenne")
 					FirstNameAvatarView(firstName: "Steve")
+					FirstNameAvatarView(firstName: "Bob")
+					FirstNameAvatarView(firstName: "Thomas")
+					FirstNameAvatarView(firstName: "Jackie")
+					FirstNameAvatarView(firstName: "Phillip")
 				})
-				
-				Spacer()
 			}
-			.navigationTitle("Location Name")
-			.navigationBarTitleDisplayMode(.inline)
+			
+			Spacer()
 		}
+		.navigationTitle("Location Name")
+		.navigationBarTitleDisplayMode(.inline)
     }
 }
 

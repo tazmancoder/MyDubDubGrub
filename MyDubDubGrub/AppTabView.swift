@@ -17,7 +17,7 @@ struct AppTabView: View {
 						icon: { Image(systemName: "map") }
 					)
 				}
-			LocationListView()
+			NavigationView { LocationListView() }
 				.tabItem {
 					Label(
 						title: { Text("Locations") },
