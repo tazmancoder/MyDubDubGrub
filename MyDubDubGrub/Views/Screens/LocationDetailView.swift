@@ -17,34 +17,24 @@ struct LocationDetailView: View {
 	
     var body: some View {
 		VStack(spacing: 16) {
-			Image(.defaultBannerAsset)
-				.resizable()
-				.scaledToFill()
-				.frame(height: 120)
+			BannerImageView(imageName: "default-banner-asset")
 			
 			// Location Address
 			HStack {
-				Label("123 Main Street", systemImage: "mappin.and.ellipse")
-					.font(.caption)
-					.foregroundColor(.secondary)
-				
+				AddressView(address: "123 Main Street")
 				Spacer()
 			}
 			.padding(.horizontal)
 			
 			// Location Description
-			Text("Craving authentic South of the Border flavors? Our restaurant specializes in delicious tacos, burritos, and a variety of other Mexican-inspired dishes. Come in and treat yourself to a culinary fiesta!")
-				.lineLimit(4)
-				.minimumScaleFactor(0.75)
-				.multilineTextAlignment(.leading)
-				.frame(height: 70)
-				.padding(.horizontal)
+			DescriptionView(text: "Craving authentic South of the Border flavors? Our restaurant specializes in delicious tacos, burritos, and a variety of other Mexican-inspired dishes. Come in and treat yourself to a culinary fiesta!")
 			
 			// List of action buttons
 			ZStack {
 				Capsule()
 					.frame(height: 80)
 					.foregroundColor(Color(.secondarySystemBackground))
+				
 				HStack(spacing: 20) {
 					Button {
 						
@@ -104,4 +94,42 @@ struct LocationDetailView: View {
 
 #Preview {
     LocationDetailView()
+}
+
+// MARK: - Sub Views
+struct BannerImageView: View {
+	// MARK: - Properties
+	var imageName: String
+	
+	var body: some View {
+		Image(imageName)
+			.resizable()
+			.scaledToFill()
+			.frame(height: 120)
+	}
+}
+
+struct AddressView: View {
+	// MARK: - Properites
+	var address: String
+	
+	var body: some View {
+		Label(address, systemImage: "mappin.and.ellipse")
+			.font(.caption)
+			.foregroundColor(.secondary)
+	}
+}
+
+struct DescriptionView: View {
+	// MARK: - Properties
+	var text: String
+	
+	var body: some View {
+		Text(text)
+			.lineLimit(4)
+			.minimumScaleFactor(0.75)
+			.multilineTextAlignment(.leading)
+			.frame(height: 70)
+			.padding(.horizontal)
+	}
 }

@@ -17,14 +17,14 @@ struct AppTabView: View {
 						icon: { Image(systemName: "map") }
 					)
 				}
-			LocationListView()
+			NavigationView { LocationListView() }
 				.tabItem {
 					Label(
 						title: { Text("Locations") },
 						icon: { Image(systemName: "building") }
 					)
 				}
-			ProfileView()
+			NavigationView { ProfileView() }
 				.tabItem {
 					Label(
 						title: { Text("Profile") },

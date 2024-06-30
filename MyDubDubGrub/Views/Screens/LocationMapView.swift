@@ -22,12 +22,8 @@ struct LocationMapView: View {
 				.ignoresSafeArea()
 			
 			VStack {
-				Image(.ddgMapLogo)
-					.resizable()
-					.scaledToFit()
-					.frame(height: 70)
+				LogoView()
 					.shadow(radius: 10)
-					
 				Spacer()
 			}
 		}
@@ -36,4 +32,13 @@ struct LocationMapView: View {
 
 #Preview {
     LocationMapView()
+}
+
+struct LogoView: View {
+	var body: some View {
+		Image(.ddgMapLogo)
+			.resizable()
+			.scaledToFit()
+			.frame(height: 70)
+	}
 }

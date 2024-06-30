@@ -20,5 +20,5 @@ struct AvatarView: View {
 }
 
 #Preview {
-	AvatarView(size: 35)
+	AvatarView(size: 90)
 }
