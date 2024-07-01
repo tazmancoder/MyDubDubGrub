@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CloudKit
 
 struct ProfileView: View {
 	// MARK: - State
@@ -94,6 +95,49 @@ struct ProfileView: View {
 			return
 		}
 		
+		// Create our CKRecord
+		let profileRecord = CKRecord(recordType: RecordType.profile)
+		profileRecord[DDGProfile.kFirstName] = firstName
+		profileRecord[DDGProfile.kLastName] = lastName
+		profileRecord[DDGProfile.kCompanyName] = companyName
+		profileRecord[DDGProfile.kBio] = bio
+		profileRecord[DDGProfile.kAvatar] = avatar.convertToCKAsset()
+		
+		// Get our UserRecordID for the Container
+		CKContainer.default().fetchUserRecordID { recordID, error in
+			// Unwrap the recordID, make sure it has something in it
+			guard let recordID = recordID, error == nil else {
+				print(error!.localizedDescription)
+				return
+			}
+			
+			// Get UserRecord form the Public Database
+			CKContainer.default().publicCloudDatabase.fetch(withRecordID: recordID) { userRecord, error in
+				// Making sure userRecord has something in it
+				guard let userRecord = userRecord, error == nil else {
+					print(error!.localizedDescription)
+					return
+				}
+				
+				// Create reference on UserRecord to the DDGProfile we created
+				userRecord["userProfile"] = CKRecord.Reference(recordID: profileRecord.recordID, action: .none)
+				
+				// Create CKOperation to save our User and Profile Records
+				let operation = CKModifyRecordsOperation(recordsToSave: [userRecord, profileRecord])
+				operation.modifyRecordsCompletionBlock = { savedRecords, _, error in
+					// Make sure we have savedRecords
+					guard let savedRecords = savedRecords, error == nil else {
+						print(error!.localizedDescription)
+						return
+					}
+					
+					print(savedRecords)
+				}
+				
+				// Adding the operation to send all these records to the cloud
+				CKContainer.default().publicCloudDatabase.add(operation)
+			}
+		}
 	}
 }
 
