@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct LocationDetailView: View {
 	// MARK: - Grid Items
@@ -20,7 +21,7 @@ struct LocationDetailView: View {
 	
     var body: some View {
 		VStack(spacing: 16) {
-			BannerImageView(imageName: "default-banner-asset")
+			BannerImageView(image: location.createBannerImage())
 			
 			// Location Address
 			HStack {
@@ -72,19 +73,14 @@ struct LocationDetailView: View {
 			
 			ScrollView(showsIndicators: false) {
 				LazyVGrid(columns: columns, content: {
-					FirstNameAvatarView(firstName: "Sean")
-					FirstNameAvatarView(firstName: "Mark")
-					FirstNameAvatarView(firstName: "Kristine")
-					FirstNameAvatarView(firstName: "Mechell")
-					FirstNameAvatarView(firstName: "Jeanne")
-					FirstNameAvatarView(firstName: "Harry")
-					FirstNameAvatarView(firstName: "Devon")
-					FirstNameAvatarView(firstName: "Cheyenne")
-					FirstNameAvatarView(firstName: "Steve")
-					FirstNameAvatarView(firstName: "Bob")
-					FirstNameAvatarView(firstName: "Thomas")
-					FirstNameAvatarView(firstName: "Jackie")
-					FirstNameAvatarView(firstName: "Phillip")
+					FirstNameAvatarView(image: PlaceHolderImage.avatar, firstName: "Sean")
+					FirstNameAvatarView(image: PlaceHolderImage.avatar, firstName: "Mark")
+					FirstNameAvatarView(image: PlaceHolderImage.avatar, firstName: "Kristine")
+					FirstNameAvatarView(image: PlaceHolderImage.avatar, firstName: "Mechell")
+					FirstNameAvatarView(image: PlaceHolderImage.avatar, firstName: "Jeanne")
+					FirstNameAvatarView(image: PlaceHolderImage.avatar, firstName: "Harry")
+					FirstNameAvatarView(image: PlaceHolderImage.avatar, firstName: "Devon")
+					FirstNameAvatarView(image: PlaceHolderImage.avatar, firstName: "Cheyenne")
 				})
 			}
 			
@@ -102,10 +98,10 @@ struct LocationDetailView: View {
 // MARK: - Sub Views
 struct BannerImageView: View {
 	// MARK: - Properties
-	var imageName: String
+	var image: UIImage
 	
 	var body: some View {
-		Image(imageName)
+		Image(uiImage: image)
 			.resizable()
 			.scaledToFill()
 			.frame(height: 120)

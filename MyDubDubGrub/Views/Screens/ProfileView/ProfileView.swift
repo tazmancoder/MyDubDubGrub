@@ -6,14 +6,12 @@
 //
 
 import SwiftUI
+import CloudKit
 
 struct ProfileView: View {
-	// MARK: - State
-	@State private var firstName = ""
-	@State private var lastName = ""
-	@State private var companyName = ""
-	@State private var bio = ""
-
+	// MARK: - State Object
+	@StateObject private var viewModel = ProfileViewModel()
+	
     var body: some View {
 		VStack {
 			ZStack {
@@ -21,17 +19,20 @@ struct ProfileView: View {
 				
 				HStack(spacing: 16) {
 					ZStack {
-						AvatarView(size: 84)
+						AvatarView(image: viewModel.avatar, size: 84)
 						EditImage()
 					}
 					.padding(.leading, 12)
+					.onTapGesture {
+						viewModel.isShowingPhotoPicker = true
+					}
 
 					VStack(spacing: 1) {
-						TextField("First Name", text: $firstName)
+						TextField("First Name", text: $viewModel.firstName)
 							.profileNameStyle()
-						TextField("Last Name", text: $lastName)
+						TextField("Last Name", text: $viewModel.lastName)
 							.profileNameStyle()
-						TextField("Company Name", text: $companyName)
+						TextField("Company Name", text: $viewModel.companyName)
 					}
 					.padding(.trailing, 16)
 				}
@@ -39,8 +40,8 @@ struct ProfileView: View {
 			}
 			
 			VStack(alignment: .leading, spacing: 8) {
-				CharactersRemainView(currentCount: bio.count)
-				TextEditor(text: $bio)
+				CharactersRemainView(currentCount: viewModel.bio.count)
+				TextEditor(text: $viewModel.bio)
 					.frame(height: 100)
 					.overlay(
 						RoundedRectangle(cornerRadius: 8)
@@ -52,13 +53,30 @@ struct ProfileView: View {
 			Spacer()
 			
 			Button {
-				
+				viewModel.createProfile()
 			} label: {
 				DDGButton(title: "Create Profile")
 			}
+			.padding(.bottom)
 		}
 		.navigationTitle("Profile")
-    }
+		.toolbar {
+			Button {
+				dismissKeyboard()
+			} label: {
+				Image(systemName: "keyboard.chevron.compact.down")
+			}
+		}
+		.onAppear {
+			viewModel.getProfile()
+		}
+		.alert(item: $viewModel.alertItem, content: { alertItem in
+			Alert(title: alertItem.title, message: alertItem.message, dismissButton: alertItem.dismissButton)
+		})
+		.sheet(isPresented: $viewModel.isShowingPhotoPicker) {
+			PhotoPicker(image: $viewModel.avatar)
+		}
+    }	
 }
 
 #Preview {

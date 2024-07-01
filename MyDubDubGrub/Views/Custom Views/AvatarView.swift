@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct AvatarView: View {
+	var image: UIImage
 	var size: CGFloat
 	
     var body: some View {
-		Image(.defaultAvatar)
+		Image(uiImage: image)
 			.resizable()
 			.scaledToFit()
 			.frame(width: size, height: size)
@@ -20,5 +21,5 @@ struct AvatarView: View {
 }
 
 #Preview {
-	AvatarView(size: 90)
+	AvatarView(image: PlaceHolderImage.avatar, size: 90)
 }

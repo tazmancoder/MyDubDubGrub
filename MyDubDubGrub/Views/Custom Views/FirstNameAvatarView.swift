@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct FirstNameAvatarView: View {
+	var image: UIImage
 	var firstName: String
 	
     var body: some View {
 		VStack {
-			AvatarView(size: 64)
+			AvatarView(image: image, size: 64)
 			Text(firstName)
 				.bold()
 				.lineLimit(1)
@@ -22,5 +23,5 @@ struct FirstNameAvatarView: View {
 }
 
 #Preview {
-	FirstNameAvatarView(firstName: "Devon")
+	FirstNameAvatarView(image: PlaceHolderImage.avatar, firstName: "Devon")
 }
