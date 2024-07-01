@@ -25,7 +25,7 @@ final class ProfileViewModel: ObservableObject {
 			  !companyName.isEmpty,
 			  !bio.isEmpty,
 			  avatar != PlaceHolderImage.avatar,
-			  bio.count < 100 else { return false }
+			  bio.count <= 100 else { return false }
 		return true
 	}
 	
@@ -37,79 +37,53 @@ final class ProfileViewModel: ObservableObject {
 		
 		// Create our CKRecord
 		let profileRecord = createProfileRecord()
+		guard let userRecord = CloudKitManager.shared.userRecord else {
+			// Show an alert
+			return
+		}
+
+		// Create reference on UserRecord to the DDGProfile we created
+		userRecord[User.userProfile] = CKRecord.Reference(recordID: profileRecord.recordID, action: .none)
 		
-		// Get our UserRecordID for the Container
-		CKContainer.default().fetchUserRecordID { recordID, error in
-			// Unwrap the recordID, make sure it has something in it
-			guard let recordID = recordID, error == nil else {
-				print(error!.localizedDescription)
-				return
-			}
-			
-			// Get UserRecord form the Public Database
-			CKContainer.default().publicCloudDatabase.fetch(withRecordID: recordID) { userRecord, error in
-				// Making sure userRecord has something in it
-				guard let userRecord = userRecord, error == nil else {
-					print(error!.localizedDescription)
-					return
-				}
-				
-				// Create reference on UserRecord to the DDGProfile we created
-				userRecord[User.userProfile] = CKRecord.Reference(recordID: profileRecord.recordID, action: .none)
-				
-				// Create CKOperation to save our User and Profile Records
-				let operation = CKModifyRecordsOperation(recordsToSave: [userRecord, profileRecord])
-				operation.modifyRecordsCompletionBlock = { savedRecords, _, error in
-					// Make sure we have savedRecords
-					guard let savedRecords = savedRecords, error == nil else {
-						print(error!.localizedDescription)
-						return
-					}
-					
-					print(savedRecords)
-				}
-				
-				// Adding the operation to send all these records to the cloud
-				CKContainer.default().publicCloudDatabase.add(operation)
+		CloudKitManager.shared.batchSave(records: [userRecord, profileRecord]) { result in
+			switch result {
+			case .success(_):
+				// Show Alert
+				break
+			case .failure(_):
+				// Show Alert
+				break
 			}
 		}
 	}
 
 	func getProfile() {
-		// Get our UserRecordID for the Container
-		CKContainer.default().fetchUserRecordID { recordID, error in
-			// Unwrap the recordID, make sure it has something in it
-			guard let recordID = recordID, error == nil else {
-				print(error!.localizedDescription)
-				return
-			}
-			
-			// Get UserRecord form the Public Database
-			CKContainer.default().publicCloudDatabase.fetch(withRecordID: recordID) { userRecord, error in
-				// Making sure userRecord has something in it
-				guard let userRecord = userRecord, error == nil else {
-					print(error!.localizedDescription)
-					return
-				}
-				
-				let profileReference = userRecord[User.userProfile] as! CKRecord.Reference
-				let profileRecordID = profileReference.recordID
-				
-				CKContainer.default().publicCloudDatabase.fetch(withRecordID: profileRecordID) { profileRecord, error in
-					guard let profileRecord = profileRecord, error == nil else {
-						print(error!.localizedDescription)
-						return
-					}
+		guard let userRecord = CloudKitManager.shared.userRecord else {
+			// Show an alert
+			return
+		}
+		
+		guard let profileReference = userRecord[User.userProfile] as? CKRecord.Reference else {
+			// Show Alert
+			return
+		}
+		
+		let profileRecordID = profileReference.recordID
+		
+		CloudKitManager.shared.fetchRecord(with: profileRecordID) { result in
+			DispatchQueue.main.async { [self] in
+				switch result {
+				case .success(let record):
+					let profile = DDGProfile(record: record)
 					
-					DispatchQueue.main.async { [self] in
-						let profile = DDGProfile(record: profileRecord)
-						
-						firstName = profile.firstName
-						lastName = profile.lastName
-						companyName = profile.companyName
-						bio = profile.bio
-						avatar = profile.createAvatarImage()
-					}
+					firstName = profile.firstName
+					lastName = profile.lastName
+					companyName = profile.companyName
+					bio = profile.bio
+					avatar = profile.createAvatarImage()
+				case .failure(_):
+					// Show Alert
+					break
 				}
 			}
 		}

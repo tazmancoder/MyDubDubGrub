@@ -7,11 +7,42 @@
 
 import CloudKit
 
-struct CloudKitManager {
+final class CloudKitManager {
+	// Singleton
+	static let shared = CloudKitManager()
+	
+	// MARK: - Init
+	private init() {}
+	
+	// MARK: - Properties
+	var userRecord: CKRecord?
+	
+	// MARK: - Functions
+	func getUserRecord() {
+		// Get our UserRecordID for the Container
+		CKContainer.default().fetchUserRecordID { recordID, error in
+			// Unwrap the recordID, make sure it has something in it
+			guard let recordID = recordID, error == nil else {
+				print(error!.localizedDescription)
+				return
+			}
+			
+			// Get UserRecord form the Public Database
+			CKContainer.default().publicCloudDatabase.fetch(withRecordID: recordID) { userRecord, error in
+				// Making sure userRecord has something in it
+				guard let userRecord = userRecord, error == nil else {
+					print(error!.localizedDescription)
+					return
+				}
+				
+				self.userRecord = userRecord
+			}
+		}
+	}
 	
 	/// Will go out to iCloud and get all locations
 	/// - Parameter completed: Returns an array of DDGLocation
-	static func getLocations(completed: @escaping (Result<[DDGLocation], Error>) -> Void) {
+	func getLocations(completed: @escaping (Result<[DDGLocation], Error>) -> Void) {
 		let sortDescriptor = NSSortDescriptor(key: DDGLocation.kName, ascending: true)
 		
 		// Query the record type and give me all of them
@@ -32,6 +63,35 @@ struct CloudKitManager {
 			// Convert records we get back to [DDGLocation]
 			let locations = records.map { $0.convertToDDGLocation() }
 			completed(.success(locations))
+		}
+	}
+	
+	func batchSave(records: [CKRecord], completed: @escaping (Result<[CKRecord], Error>) -> Void) {
+		// Create CKOperation to save our User and Profile Records
+		let operation = CKModifyRecordsOperation(recordsToSave: records)
+		operation.modifyRecordsCompletionBlock = { savedRecords, _, error in
+			// Make sure we have savedRecords
+			guard let savedRecords = savedRecords, error == nil else {
+				completed(.failure(error!))
+				return
+			}
+			
+			completed(.success(savedRecords))
+		}
+		
+		// Adding the operation to send all these records to the cloud
+		CKContainer.default().publicCloudDatabase.add(operation)
+	}
+	
+	func fetchRecord(with id: CKRecord.ID, completed:  @escaping (Result<CKRecord, Error>) -> Void) {
+		CKContainer.default().publicCloudDatabase.fetch(withRecordID: id) { record, error in
+			guard let record = record, error == nil else {
+				print(error!.localizedDescription)
+				completed(.failure(error!))
+				return
+			}
+			
+			completed(.success(record))
 		}
 	}
 }
