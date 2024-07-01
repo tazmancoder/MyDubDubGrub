@@ -13,7 +13,7 @@ enum RecordType {
 	static let profile = "DDGProfile"
 }
 
-enum PlaceHolderImages {
+enum PlaceHolderImage {
 	static let avatar = UIImage(named: "default-avatar")!
 	static let banner = UIImage(named: "default-banner-asset")!
 	static let square = UIImage(named: "default-square-asset")!
@@ -25,9 +25,9 @@ enum ImageDimension {
 	static func getPlaceholder(for dimension: ImageDimension) -> UIImage {
 		switch dimension {
 		case .square:
-			return PlaceHolderImages.square
+			return PlaceHolderImage.square
 		case .banner:
-			return PlaceHolderImages.banner
+			return PlaceHolderImage.banner
 		}
 	}
 }
