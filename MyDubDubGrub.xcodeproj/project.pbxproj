@@ -33,6 +33,7 @@
 		66FFB9D22C31D37F00E0FEDE /* AlertItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FFB9D12C31D37F00E0FEDE /* AlertItem.swift */; };
 		66FFB9D52C3209D000E0FEDE /* LocationMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FFB9D42C3209D000E0FEDE /* LocationMapViewModel.swift */; };
 		66FFB9D82C32141900E0FEDE /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FFB9D72C32141900E0FEDE /* LocationManager.swift */; };
+		66FFB9DA2C3222EE00E0FEDE /* CKAsset+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FFB9D92C3222EE00E0FEDE /* CKAsset+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +65,7 @@
 		66FFB9D12C31D37F00E0FEDE /* AlertItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertItem.swift; sourceTree = "<group>"; };
 		66FFB9D42C3209D000E0FEDE /* LocationMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMapViewModel.swift; sourceTree = "<group>"; };
 		66FFB9D72C32141900E0FEDE /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		66FFB9D92C3222EE00E0FEDE /* CKAsset+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CKAsset+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,6 +187,7 @@
 				66C926F92C3095B10073FD9D /* Extensions */,
 				66DBAC732C31BBCF0023B503 /* Constants.swift */,
 				66FFB9D12C31D37F00E0FEDE /* AlertItem.swift */,
+				66FFB9D92C3222EE00E0FEDE /* CKAsset+Ext.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -292,6 +295,7 @@
 				66C927052C30D3610073FD9D /* AvatarView.swift in Sources */,
 				66DBAC722C31BA9D0023B503 /* CloudKitManager.swift in Sources */,
 				660225872C3102DA00B0EBE4 /* LocationCell.swift in Sources */,
+				66FFB9DA2C3222EE00E0FEDE /* CKAsset+Ext.swift in Sources */,
 				66C927012C30B77E0073FD9D /* LocationListView.swift in Sources */,
 				66C926FD2C30B6FF0073FD9D /* AppTabView.swift in Sources */,
 				660225892C3105B400B0EBE4 /* CustomModifiers.swift in Sources */,

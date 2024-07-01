@@ -6,6 +6,7 @@
 //
 
 import CloudKit
+import UIKit
 
 struct DDGLocation: Identifiable {
 	// MARK: - Stringly typed constants
@@ -41,4 +42,14 @@ struct DDGLocation: Identifiable {
 		phoneNumber = record[DDGLocation.kPhoneNumber] as? String ?? "N/A"
 	}
 	
+	// MARK: - Functions
+	func createSquareImage() -> UIImage {
+		guard let asset = squareAsset else { return PlaceHolderImages.square }
+		return asset.convertToUIImage(in: .square)
+	}
+	
+	func createBannerImage() -> UIImage {
+		guard let asset = bannerAsset else { return PlaceHolderImages.banner }
+		return asset.convertToUIImage(in: .banner)
+	}
 }

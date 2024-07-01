@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct LocationDetailView: View {
 	// MARK: - Grid Items
@@ -20,7 +21,7 @@ struct LocationDetailView: View {
 	
     var body: some View {
 		VStack(spacing: 16) {
-			BannerImageView(imageName: "default-banner-asset")
+			BannerImageView(image: location.createBannerImage())
 			
 			// Location Address
 			HStack {
@@ -102,10 +103,10 @@ struct LocationDetailView: View {
 // MARK: - Sub Views
 struct BannerImageView: View {
 	// MARK: - Properties
-	var imageName: String
+	var image: UIImage
 	
 	var body: some View {
-		Image(imageName)
+		Image(uiImage: image)
 			.resizable()
 			.scaledToFill()
 			.frame(height: 120)
