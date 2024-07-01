@@ -6,6 +6,7 @@
 //
 
 import CloudKit
+import UIKit
 
 struct DDGProfile {
 	// MARK: - Stringly typed constants
@@ -32,5 +33,11 @@ struct DDGProfile {
 		companyName = record[DDGProfile.kCompanyName] as? String ?? "N/A"
 		firstName = record[DDGProfile.kFirstName] as? String ?? "N/A"
 		lastName = record[DDGProfile.kLastName] as? String ?? "N/A"
+	}
+	
+	// MARK: - Functions
+	func createAvatarImage() -> UIImage {
+		guard let avatar = avatar else { return PlaceHolderImage.square }
+		return avatar.convertToUIImage(in: .square)
 	}
 }

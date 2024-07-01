@@ -8,6 +8,10 @@
 import Foundation
 import UIKit
 
+enum User {
+	static let userProfile = "userProfile"
+}
+
 enum RecordType {
 	static let location = "DDGLocation"
 	static let profile = "DDGProfile"
