@@ -17,6 +17,7 @@
 		662018632C32E26200E95AFE /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662018622C32E26200E95AFE /* PhotoPicker.swift */; };
 		662018652C32F1CE00E95AFE /* UIImage+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662018642C32F1CE00E95AFE /* UIImage+Ext.swift */; };
 		663410B12C33123B00BA6C33 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663410B02C33123B00BA6C33 /* ProfileViewModel.swift */; };
+		663410B32C3358A400BA6C33 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663410B22C3358A400BA6C33 /* LoadingView.swift */; };
 		66C926E92C307A3B0073FD9D /* MyDubDubGrubApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C926E82C307A3B0073FD9D /* MyDubDubGrubApp.swift */; };
 		66C926ED2C307A3B0073FD9D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66C926EC2C307A3B0073FD9D /* Assets.xcassets */; };
 		66C926F02C307A3B0073FD9D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66C926EF2C307A3B0073FD9D /* Preview Assets.xcassets */; };
@@ -53,6 +54,7 @@
 		662018622C32E26200E95AFE /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
 		662018642C32F1CE00E95AFE /* UIImage+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Ext.swift"; sourceTree = "<group>"; };
 		663410B02C33123B00BA6C33 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		663410B22C3358A400BA6C33 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		66C926E52C307A3B0073FD9D /* MyDubDubGrub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyDubDubGrub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		66C926E82C307A3B0073FD9D /* MyDubDubGrubApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDubDubGrubApp.swift; sourceTree = "<group>"; };
 		66C926EC2C307A3B0073FD9D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				66C9270A2C30E0430073FD9D /* FirstNameAvatarView.swift */,
 				66C927042C30D3610073FD9D /* AvatarView.swift */,
 				6620185C2C32C13000E95AFE /* LogoView.swift */,
+				663410B22C3358A400BA6C33 /* LoadingView.swift */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -352,6 +355,7 @@
 				6620185B2C32C0B400E95AFE /* OnBoardView.swift in Sources */,
 				6602258B2C31060100B0EBE4 /* View+Ext.swift in Sources */,
 				66C926FB2C3095C60073FD9D /* Color+Ext.swift in Sources */,
+				663410B32C3358A400BA6C33 /* LoadingView.swift in Sources */,
 				6602258D2C31073A00B0EBE4 /* DDGButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

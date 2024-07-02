@@ -17,33 +17,69 @@ struct AlertItem: Identifiable {
 struct AlertContext {
 	// MARK: - MapView Errors
 	static let unableToGetLocations = AlertItem(
-		title: Text("Locations Error"),
-		message: Text("Unable to retrieve locations at this time.\nPlease try again."),
+		title: Text("Location Retrieval Failed"),
+		message: Text("We couldn't fetch your locations at the moment. Please check your connection and try again."),
 		dismissButton: .default(Text("OK"))
 	)
 	
 	static let locationRestricted = AlertItem(
-		title: Text("Location Restricted"),
-		message: Text("You're location is restricted. This may be due to parental controls"),
+		title: Text("Location Access Restricted"),
+		message: Text("Your location access is restricted, possibly due to parental controls or device settings."),
 		dismissButton: .default(Text("OK"))
 	)
 	
 	static let locationDenied = AlertItem(
-		title: Text("Location Denied"),
-		message: Text("Dub Dub Grub does not have permission to access your location.\nTo change that go to your phone's Settings > Dub Dub Grub > Location."),
+		title: Text("Location Access Denied"),
+		message: Text("Dub Dub Grub cannot access your location. Please enable location access in Settings > Dub Dub Grub > Location."),
 		dismissButton: .default(Text("OK"))
 	)
 	
 	static let locationDisabled = AlertItem(
-		title: Text("Location Service Disabled"),
-		message: Text("Your phones locations services are disabled.\nTo change that go to your phones Settings > Privacy > Location Services."),
+		title: Text("Location Services Disabled"),
+		message: Text("Location services are turned off on your phone. Please enable them in Settings > Privacy > Location Services."),
 		dismissButton: .default(Text("OK"))
 	)
 	
 	// MARK: - ProfileView Errors
 	static let invalidProfile = AlertItem(
-		title: Text("Invalid Profile"),
-		message: Text("All fields are required as well as a profile photo. Your bio must be < 100 characters.\nPlease try again."),
+		title: Text("Profile Incomplete"),
+		message: Text("Please fill in all fields, including a profile photo, and ensure your bio is under \(Bio.totalCharacter) characters."),
+		dismissButton: .default(Text("OK"))
+	)
+	
+	static let noUserRecord = AlertItem(
+		title: Text("iCloud Login Required"),
+		message: Text("To use Dub Dub Grub's Profile feature, please log in to iCloud in your phone's settings."),
+		dismissButton: .default(Text("OK"))
+	)
+	
+	static let createProfileSuccess = AlertItem(
+		title: Text("Profile Created!"),
+		message: Text("Your profile was created successfully."),
+		dismissButton: .default(Text("OK"))
+	)
+	
+	static let createProfileFailure = AlertItem(
+		title: Text("Profile Creation Failed"),
+		message: Text("We couldn't create your profile. Please try again later or contact customer support if the issue persists."),
+		dismissButton: .default(Text("OK"))
+	)
+	
+	static let unableToGetProfile = AlertItem(
+		title: Text("Profile Retrieval Failed"),
+		message: Text("We couldn't retrieve your profile. Please try again later or contact customer support if the issue persists."),
+		dismissButton: .default(Text("OK"))
+	)
+	
+	static let updateProfileSuccess = AlertItem(
+		title: Text("Profile Updated!"),
+		message: Text("Your profile was updated successfully."),
+		dismissButton: .default(Text("OK"))
+	)
+	
+	static let unableToUpdateProfile = AlertItem(
+		title: Text("Profile Update Failed"),
+		message: Text("We couldn't update your profile. Please try again later or contact customer support if the issue persists."),
 		dismissButton: .default(Text("OK"))
 	)
 }

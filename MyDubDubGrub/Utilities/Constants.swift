@@ -8,6 +8,10 @@
 import Foundation
 import UIKit
 
+enum Bio {
+	static let totalCharacter = 150
+}
+
 enum User {
 	static let userProfile = "userProfile"
 }
