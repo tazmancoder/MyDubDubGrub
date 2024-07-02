@@ -54,9 +54,9 @@ struct ProfileView: View {
 				Spacer()
 				
 				Button {
-					viewModel.createProfile()
+					viewModel.profileContext == .create ? viewModel.createProfile() : viewModel.updateProfile()
 				} label: {
-					DDGButton(title: "Create Profile")
+					DDGButton(title: viewModel.profileContext == .create ? "Create Profile" : "Update Profile")
 				}
 				.padding(.bottom)
 			}
@@ -120,10 +120,10 @@ struct CharactersRemainView: View {
 		Text("Bio: ")
 			.font(.callout)
 			.foregroundColor(.secondary)
-		+ Text("\(100 - currentCount)")
+		+ Text("\(Bio.totalCharacter - currentCount)")
 			.font(.callout)
 			.bold()
-			.foregroundColor(currentCount <= 100 ? .brandPrimary : Color(.systemPink))
+			.foregroundColor(currentCount <= Bio.totalCharacter ? .brandPrimary : Color(.systemPink))
 		+ Text(" Characters Remain")
 			.font(.callout)
 			.foregroundColor(.secondary)

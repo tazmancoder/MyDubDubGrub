@@ -43,7 +43,7 @@ struct AlertContext {
 	// MARK: - ProfileView Errors
 	static let invalidProfile = AlertItem(
 		title: Text("Profile Incomplete"),
-		message: Text("Please fill in all fields, including a profile photo, and ensure your bio is under 100 characters."),
+		message: Text("Please fill in all fields, including a profile photo, and ensure your bio is under \(Bio.totalCharacter) characters."),
 		dismissButton: .default(Text("OK"))
 	)
 	
@@ -68,6 +68,18 @@ struct AlertContext {
 	static let unableToGetProfile = AlertItem(
 		title: Text("Profile Retrieval Failed"),
 		message: Text("We couldn't retrieve your profile. Please try again later or contact customer support if the issue persists."),
+		dismissButton: .default(Text("OK"))
+	)
+	
+	static let updateProfileSuccess = AlertItem(
+		title: Text("Profile Updated!"),
+		message: Text("Your profile was updated successfully."),
+		dismissButton: .default(Text("OK"))
+	)
+	
+	static let unableToUpdateProfile = AlertItem(
+		title: Text("Profile Update Failed"),
+		message: Text("We couldn't update your profile. Please try again later or contact customer support if the issue persists."),
 		dismissButton: .default(Text("OK"))
 	)
 }
