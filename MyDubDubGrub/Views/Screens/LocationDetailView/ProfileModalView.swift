@@ -11,12 +11,14 @@ struct ProfileModalView: View {
 	// MARK: - Property
 	var profile: DDGProfile
 	
+	@Binding var isShowingProfileModal: Bool
+	
     var body: some View {
 		ZStack {
 			VStack {
 				Spacer().frame(height: 60)
 				
-				Text("\(profile.firstName) \(profile.lastName)")
+				Text(profile.firstName + " " + profile.lastName)
 					.bold()
 					.font(.title2)
 					.lineLimit(1)
@@ -37,13 +39,13 @@ struct ProfileModalView: View {
 			.background(Color(.secondarySystemBackground))
 			.cornerRadius(16)
 			.overlay(Button {
-				
+				withAnimation { isShowingProfileModal = false }
 			} label: {
 				XDismissButton()
 					.padding(5)
 			}, alignment: .topTrailing)
 			
-			Image(uiImage: profile.avatar.convertToUIImage(in: .square))
+			Image(uiImage: profile.createAvatarImage())
 				.resizable()
 				.scaledToFill()
 				.frame(width: 110, height: 110)
@@ -55,5 +57,5 @@ struct ProfileModalView: View {
 }
 
 #Preview {
-	ProfileModalView(profile: DDGProfile(record: MockData.profile))
+	ProfileModalView(profile: DDGProfile(record: MockData.profile), isShowingProfileModal: .constant(true))
 }
