@@ -9,29 +9,21 @@ import SwiftUI
 import UIKit
 
 struct LocationDetailView: View {
-	// MARK: - Grid Items
-	let columns = [
-		GridItem(.flexible()),
-		GridItem(.flexible()),
-		GridItem(.flexible())
-	]
-	
-	// MARK: - Properties
-	var location: DDGLocation
+	@ObservedObject var viewModel: LocationDetailViewModel
 	
     var body: some View {
 		VStack(spacing: 16) {
-			BannerImageView(image: location.createBannerImage())
+			BannerImageView(image: viewModel.location.createBannerImage())
 			
 			// Location Address
 			HStack {
-				AddressView(address: location.address)
+				AddressView(address: viewModel.location.address)
 				Spacer()
 			}
 			.padding(.horizontal)
 			
 			// Location Description
-			DescriptionView(text: location.description)
+			DescriptionView(text: viewModel.location.description)
 			
 			// List of action buttons
 			ZStack {
@@ -41,17 +33,17 @@ struct LocationDetailView: View {
 				
 				HStack(spacing: 20) {
 					Button {
-						
+						viewModel.getDirectionsToLocation()
 					} label: {
 						LocationActionButton(imageColor: .brandPrimary, imageName: "location.fill")
 					}
 					
-					Link(destination: URL(string: location.websiteURL)!, label: {
+					Link(destination: URL(string: viewModel.location.websiteURL)!, label: {
 						LocationActionButton(imageColor: .brandPrimary, imageName: "network")
 					})
 					
 					Button {
-						
+						viewModel.callLocation()
 					} label: {
 						LocationActionButton(imageColor: .brandPrimary, imageName: "phone.fill")
 					}
@@ -72,7 +64,7 @@ struct LocationDetailView: View {
 				.font(.title2)
 			
 			ScrollView(showsIndicators: false) {
-				LazyVGrid(columns: columns, content: {
+				LazyVGrid(columns: viewModel.columns, content: {
 					FirstNameAvatarView(image: PlaceHolderImage.avatar, firstName: "Sean")
 					FirstNameAvatarView(image: PlaceHolderImage.avatar, firstName: "Mark")
 					FirstNameAvatarView(image: PlaceHolderImage.avatar, firstName: "Kristine")
@@ -86,13 +78,20 @@ struct LocationDetailView: View {
 			
 			Spacer()
 		}
-		.navigationTitle(location.name)
+		.alert(item: $viewModel.alertItem, content: { alertItem in
+			Alert(title: alertItem.title, message: alertItem.message, dismissButton: alertItem.dismissButton)
+		})
+		.navigationTitle(viewModel.location.name)
 		.navigationBarTitleDisplayMode(.inline)
     }
 }
 
 #Preview {
-	LocationDetailView(location: DDGLocation(record: MockData.location))
+	LocationDetailView(
+		viewModel: LocationDetailViewModel(
+			location: DDGLocation(record: MockData.location)
+		)
+	)
 }
 
 // MARK: - Sub Views
