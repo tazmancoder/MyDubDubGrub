@@ -12,6 +12,7 @@ import MapKit
 final class LocationDetailViewModel: ObservableObject {
 	// MARK: - Published Properties
 	@Published var alertItem: AlertItem? = nil
+	@Published var isShowingProfileModal = false
 	
 	// MARK: - Grid Items
 	let columns = [
