@@ -20,6 +20,7 @@
 		662018652C32F1CE00E95AFE /* UIImage+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662018642C32F1CE00E95AFE /* UIImage+Ext.swift */; };
 		663410B12C33123B00BA6C33 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663410B02C33123B00BA6C33 /* ProfileViewModel.swift */; };
 		663410B32C3358A400BA6C33 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663410B22C3358A400BA6C33 /* LoadingView.swift */; };
+		6640BA2B2C371F6A0013E5F9 /* LocationListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6640BA2A2C371F6A0013E5F9 /* LocationListViewModel.swift */; };
 		66C926E92C307A3B0073FD9D /* MyDubDubGrubApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C926E82C307A3B0073FD9D /* MyDubDubGrubApp.swift */; };
 		66C926ED2C307A3B0073FD9D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66C926EC2C307A3B0073FD9D /* Assets.xcassets */; };
 		66C926F02C307A3B0073FD9D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66C926EF2C307A3B0073FD9D /* Preview Assets.xcassets */; };
@@ -59,6 +60,7 @@
 		662018642C32F1CE00E95AFE /* UIImage+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Ext.swift"; sourceTree = "<group>"; };
 		663410B02C33123B00BA6C33 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		663410B22C3358A400BA6C33 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		6640BA2A2C371F6A0013E5F9 /* LocationListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationListViewModel.swift; sourceTree = "<group>"; };
 		66C926E52C307A3B0073FD9D /* MyDubDubGrub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyDubDubGrub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		66C926E82C307A3B0073FD9D /* MyDubDubGrubApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDubDubGrubApp.swift; sourceTree = "<group>"; };
 		66C926EC2C307A3B0073FD9D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -102,7 +104,6 @@
 			children = (
 				660225882C3105B400B0EBE4 /* CustomModifiers.swift */,
 				660225912C310C1100B0EBE4 /* Custom Views */,
-				660225902C310BFC00B0EBE4 /* Cells */,
 				6602258F2C310B9C00B0EBE4 /* Screens */,
 			);
 			path = Views;
@@ -114,19 +115,11 @@
 				661DFB112C34D0EE00C8BA0A /* LocationDetailView */,
 				662018662C3311CE00E95AFE /* ProfileView */,
 				66FFB9D32C3209AE00E0FEDE /* LocationMapView */,
-				66C926FC2C30B6FF0073FD9D /* AppTabView.swift */,
-				66C927002C30B77E0073FD9D /* LocationListView.swift */,
+				6640BA292C371EE30013E5F9 /* LocationListView */,
 				6620185A2C32C0B400E95AFE /* OnBoardView.swift */,
+				66C926FC2C30B6FF0073FD9D /* AppTabView.swift */,
 			);
 			path = Screens;
-			sourceTree = "<group>";
-		};
-		660225902C310BFC00B0EBE4 /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-				660225862C3102DA00B0EBE4 /* LocationCell.swift */,
-			);
-			path = Cells;
 			sourceTree = "<group>";
 		};
 		660225912C310C1100B0EBE4 /* Custom Views */ = {
@@ -177,6 +170,16 @@
 				66C927022C30B7960073FD9D /* ProfileView.swift */,
 			);
 			path = ProfileView;
+			sourceTree = "<group>";
+		};
+		6640BA292C371EE30013E5F9 /* LocationListView */ = {
+			isa = PBXGroup;
+			children = (
+				6640BA2A2C371F6A0013E5F9 /* LocationListViewModel.swift */,
+				66C927002C30B77E0073FD9D /* LocationListView.swift */,
+				660225862C3102DA00B0EBE4 /* LocationCell.swift */,
+			);
+			path = LocationListView;
 			sourceTree = "<group>";
 		};
 		66C926DC2C307A3B0073FD9D = {
@@ -369,6 +372,7 @@
 				663410B12C33123B00BA6C33 /* ProfileViewModel.swift in Sources */,
 				66C927032C30B7960073FD9D /* ProfileView.swift in Sources */,
 				6620185B2C32C0B400E95AFE /* OnBoardView.swift in Sources */,
+				6640BA2B2C371F6A0013E5F9 /* LocationListViewModel.swift in Sources */,
 				6602258B2C31060100B0EBE4 /* View+Ext.swift in Sources */,
 				66C926FB2C3095C60073FD9D /* Color+Ext.swift in Sources */,
 				663410B32C3358A400BA6C33 /* LoadingView.swift in Sources */,
