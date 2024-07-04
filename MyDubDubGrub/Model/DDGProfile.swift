@@ -8,7 +8,7 @@
 import CloudKit
 import UIKit
 
-struct DDGProfile {
+struct DDGProfile: Identifiable {
 	// MARK: - Stringly typed constants
 	static let kAvatar = "avatar"
 	static let kBio = "bio"
@@ -18,7 +18,7 @@ struct DDGProfile {
 	static let kIsCheckedIn = "isCheckedIn"
 	
 	// MARK: - Properties
-	let ckRecordID: CKRecord.ID
+	let id: CKRecord.ID
 	let avatar: CKAsset!
 	let bio: String
 	let companyName: String
@@ -27,7 +27,7 @@ struct DDGProfile {
 	let isCheckedIn: CKRecord.Reference? = nil
 
 	init(record: CKRecord) {
-		ckRecordID = record.recordID
+		id = record.recordID
 		avatar = record[DDGProfile.kAvatar] as? CKAsset
 		bio = record[DDGProfile.kBio] as? String ?? "N/A"
 		companyName = record[DDGProfile.kCompanyName] as? String ?? "N/A"

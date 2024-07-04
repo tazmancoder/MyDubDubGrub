@@ -50,7 +50,7 @@ struct LocationDetailView: View {
 						}
 						
 						Button {
-							viewModel.updateCheckInStatus(to: .checkedOut)
+							viewModel.updateCheckInStatus(to: viewModel.isCheckedIn ? .checkedOut : .checkedIn)
 						} label: {
 							LocationActionButton(imageColor: .brandPrimary, imageName: "person.fill.checkmark")
 						}
@@ -66,17 +66,12 @@ struct LocationDetailView: View {
 				
 				ScrollView(showsIndicators: false) {
 					LazyVGrid(columns: viewModel.columns, content: {
-						FirstNameAvatarView(image: PlaceHolderImage.avatar, firstName: "Sean")
-							.onTapGesture {
-								viewModel.isShowingProfileModal = true
-							}
-						FirstNameAvatarView(image: PlaceHolderImage.avatar, firstName: "Mark")
-						FirstNameAvatarView(image: PlaceHolderImage.avatar, firstName: "Kristine")
-						FirstNameAvatarView(image: PlaceHolderImage.avatar, firstName: "Mechell")
-						FirstNameAvatarView(image: PlaceHolderImage.avatar, firstName: "Jeanne")
-						FirstNameAvatarView(image: PlaceHolderImage.avatar, firstName: "Harry")
-						FirstNameAvatarView(image: PlaceHolderImage.avatar, firstName: "Devon")
-						FirstNameAvatarView(image: PlaceHolderImage.avatar, firstName: "Cheyenne")
+						ForEach(viewModel.checkedInProfiles) { profile in
+							FirstNameAvatarView(profile: profile)
+								.onTapGesture {
+									viewModel.isShowingProfileModal = true
+								}
+						}
 					})
 				}
 				
@@ -98,6 +93,7 @@ struct LocationDetailView: View {
 					.zIndex(2)
 			}
 		}
+		.onAppear { viewModel.getCheckedInProfiles() }
 		.alert(item: $viewModel.alertItem, content: { alertItem in
 			Alert(title: alertItem.title, message: alertItem.message, dismissButton: alertItem.dismissButton)
 		})
