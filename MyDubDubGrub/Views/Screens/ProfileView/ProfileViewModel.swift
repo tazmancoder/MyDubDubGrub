@@ -63,6 +63,7 @@ final class ProfileViewModel: ObservableObject {
 				case .success(let records):
 					for record in records where record.recordType == RecordType.profile {
 						existingProfileRecord = record
+						CloudKitManager.shared.profileRecordID = record.recordID
 					}
 					alertItem = AlertContext.createProfileSuccess
 				case .failure(_):
@@ -135,9 +136,9 @@ final class ProfileViewModel: ObservableObject {
 				hideLoadingView()
 				
 				switch result {
-				case .success(let success):
+				case .success(_):
 					alertItem = AlertContext.updateProfileSuccess
-				case .failure(let failure):
+				case .failure(_):
 					alertItem = AlertContext.unableToUpdateProfile
 				}
 			}
