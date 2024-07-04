@@ -15,13 +15,13 @@ struct LocationCell: View {
 			Image(uiImage: location.createSquareImage())
 				.resizable()
 				.scaledToFit()
-				.frame(width: 80, height: 80)
+				.frame(width: 70, height: 70)
 				.clipShape(Circle())
 				.padding(.vertical, 8)
 			
 			VStack(alignment: .leading) {
 				Text(location.name)
-					.font(.title)
+					.font(.title2)
 					.fontWeight(.semibold)
 					.lineLimit(1)
 					.minimumScaleFactor(0.75)
