@@ -16,6 +16,10 @@ struct MyDubDubGrubApp: App {
         WindowGroup {
             AppTabView()
 				.environmentObject(locationManager)
+				.onAppear {
+					// This suppresses constraint warnings
+					UserDefaults.standard.setValue(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
+				}
         }
     }
 }

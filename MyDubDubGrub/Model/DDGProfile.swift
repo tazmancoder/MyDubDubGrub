@@ -16,6 +16,7 @@ struct DDGProfile: Identifiable {
 	static let kFirstName = "firstName"
 	static let kLastName = "lastName"
 	static let kIsCheckedIn = "isCheckedIn"
+	static let kIsCheckedInNilCheck = "isCheckedInNilCheck"
 	
 	// MARK: - Properties
 	let id: CKRecord.ID
@@ -24,8 +25,8 @@ struct DDGProfile: Identifiable {
 	let companyName: String
 	let firstName: String
 	let lastName: String
-	let isCheckedIn: CKRecord.Reference? = nil
-
+	let isCheckedIn: CKRecord.Reference?
+	
 	init(record: CKRecord) {
 		id = record.recordID
 		avatar = record[DDGProfile.kAvatar] as? CKAsset
@@ -33,6 +34,7 @@ struct DDGProfile: Identifiable {
 		companyName = record[DDGProfile.kCompanyName] as? String ?? "N/A"
 		firstName = record[DDGProfile.kFirstName] as? String ?? "N/A"
 		lastName = record[DDGProfile.kLastName] as? String ?? "N/A"
+		isCheckedIn = record[DDGProfile.kIsCheckedIn] as? CKRecord.Reference
 	}
 	
 	// MARK: - Functions
