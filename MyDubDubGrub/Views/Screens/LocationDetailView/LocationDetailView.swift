@@ -37,16 +37,19 @@ struct LocationDetailView: View {
 							viewModel.getDirectionsToLocation()
 						} label: {
 							LocationActionButton(imageColor: .brandPrimary, imageName: "location.fill")
+								.accessibilityLabel(Text("Get directions."))
 						}
 						
 						Link(destination: URL(string: viewModel.location.websiteURL)!, label: {
 							LocationActionButton(imageColor: .brandPrimary, imageName: "network")
+								.accessibilityLabel(Text("Goto website."))
 						})
 						
 						Button {
 							viewModel.callLocation()
 						} label: {
 							LocationActionButton(imageColor: .brandPrimary, imageName: "phone.fill")
+								.accessibilityLabel(Text("Call location."))
 						}
 						
 						// Only show this button if we have a profile.
@@ -59,6 +62,7 @@ struct LocationDetailView: View {
 									imageColor: viewModel.isCheckedIn ? .grubRed : .brandPrimary,
 									imageName: viewModel.isCheckedIn ? "person.fill.xmark" : "person.fill.checkmark"
 								)
+								.accessibilityLabel(Text(viewModel.isCheckedIn ? "Check out of location." : "Check into location."))
 							}
 						}
 					}
@@ -70,6 +74,9 @@ struct LocationDetailView: View {
 				Text("Who's Here")
 					.bold()
 					.font(.title2)
+					.accessibilityAddTraits(.isHeader)
+					.accessibilityLabel(Text("Who's here \(viewModel.checkedInProfiles.count) checked in."))
+					.accessibilityHint(Text("Bottom section is scrollable."))
 				
 				ZStack {
 					if viewModel.checkedInProfiles.isEmpty {
@@ -95,6 +102,8 @@ struct LocationDetailView: View {
 										.onTapGesture {
 											viewModel.isShowingProfileModal = true
 										}
+										.accessibilityElement(children: .ignore)
+										.accessibilityLabel(Text("\(profile.firstName) \(profile.lastName)"))
 								}
 							})
 						}
@@ -150,6 +159,7 @@ struct BannerImageView: View {
 			.resizable()
 			.scaledToFill()
 			.frame(height: 120)
+			.accessibilityHidden(true)
 	}
 }
 
