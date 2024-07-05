@@ -98,7 +98,7 @@ final class CloudKitManager {
 		
 		var checkedInProfiles: [CKRecord.ID: [DDGProfile]] = [:]
 		
-		// This operation fires off has it receives the records.
+		// This operation fires off as it receives the records.
 		// Build our dictionary of [CKRecord.ID: [DDGProfile]]
 		operation.recordFetchedBlock = { record in
 			// Create a DDGProfile

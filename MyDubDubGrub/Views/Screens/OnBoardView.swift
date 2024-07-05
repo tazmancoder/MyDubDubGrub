@@ -14,9 +14,7 @@ struct OnBoardView: View {
 		VStack {
 			HStack {
 				Spacer()
-				Button {
-					isShowingOnboardView = false
-				} label: {
+				Button { isShowingOnboardView = false } label: {
 					XDismissButton()
 				}
 				.padding()

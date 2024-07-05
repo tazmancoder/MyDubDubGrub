@@ -12,7 +12,7 @@ struct LocationCell: View {
 	var location: DDGLocation
 	var profiles: [DDGProfile]
 	
-    var body: some View {
+	var body: some View {
 		HStack {
 			Image(uiImage: location.createSquareImage())
 				.resizable()

@@ -13,7 +13,7 @@ struct ProfileModalView: View {
 	
 	@Binding var isShowingProfileModal: Bool
 	
-    var body: some View {
+	var body: some View {
 		ZStack {
 			VStack {
 				Spacer().frame(height: 60)
@@ -23,17 +23,17 @@ struct ProfileModalView: View {
 					.font(.title2)
 					.lineLimit(1)
 					.minimumScaleFactor(0.75)
-
+				
 				Text(profile.companyName)
 					.fontWeight(.semibold)
 					.foregroundColor(.secondary)
 					.lineLimit(1)
 					.minimumScaleFactor(0.75)
-
+				
 				Text(profile.bio)
 					.lineLimit(3)
 					.padding()
-
+				
 			}
 			.frame(width: 300, height: 230)
 			.background(Color(.secondarySystemBackground))
@@ -53,7 +53,7 @@ struct ProfileModalView: View {
 				.shadow(color: .black.opacity(0.5), radius: 4, x: 0, y: 6)
 				.offset(y: -120)
 		}
-    }
+	}
 }
 
 #Preview {

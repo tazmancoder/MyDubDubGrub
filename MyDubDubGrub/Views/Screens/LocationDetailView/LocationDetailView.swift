@@ -109,7 +109,6 @@ struct LocationDetailView: View {
 				Color(.systemBackground)
 					.ignoresSafeArea()
 					.opacity(0.9)
-//					.transition(.opacity)
 					.transition(AnyTransition.opacity.animation(.easeInOut(duration: 0.35)))
 					.animation(.easeOut)
 					.zIndex(1)
@@ -129,7 +128,7 @@ struct LocationDetailView: View {
 		})
 		.navigationTitle(viewModel.location.name)
 		.navigationBarTitleDisplayMode(.inline)
-    }
+	}
 }
 
 #Preview {

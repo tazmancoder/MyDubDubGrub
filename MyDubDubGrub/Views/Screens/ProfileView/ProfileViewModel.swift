@@ -12,33 +12,23 @@ enum ProfileContext { case create, update }
 
 final class ProfileViewModel: ObservableObject {
 	// MARK: - Properties
-	@Published var firstName = ""
-	@Published var lastName = ""
-	@Published var companyName = ""
-	@Published var bio = ""
-	@Published var avatar = PlaceHolderImage.avatar
+	@Published var firstName 			= ""
+	@Published var lastName 			= ""
+	@Published var companyName 			= ""
+	@Published var bio 					= ""
+	@Published var avatar 				= PlaceHolderImage.avatar
 	@Published var isShowingPhotoPicker = false
-	@Published var isLoading = false
-	@Published var isCheckedIn = false
+	@Published var isLoading 			= false
+	@Published var isCheckedIn 			= false
 	@Published var alertItem: AlertItem?
-
+	
 	private var existingProfileRecord: CKRecord? {
 		didSet { profileContext = .update }
 	}
 	
 	var profileContext: ProfileContext = .create
 	
-	// MARK: - View Functions
-	func isValidProfile() -> Bool {
-		guard !firstName.isEmpty,
-			  !lastName.isEmpty,
-			  !companyName.isEmpty,
-			  !bio.isEmpty,
-			  avatar != PlaceHolderImage.avatar,
-			  bio.count <= Bio.totalCharacter else { return false }
-		return true
-	}
-	
+	// MARK: - Functions
 	func getCheckedInStatus() {
 		// Retrieve the DDGProfile
 		guard let profileRecordID = CloudKitManager.shared.profileRecordID else { return }
@@ -46,14 +36,15 @@ final class ProfileViewModel: ObservableObject {
 		CloudKitManager.shared.fetchRecord(with: profileRecordID) { result in
 			DispatchQueue.main.async { [self] in
 				switch result {
-				case .success(let record):
-					if let _ = record[DDGProfile.kIsCheckedIn] as? CKRecord.Reference {
-						isCheckedIn = true
-					} else {
-						isCheckedIn = false
-					}
-				case .failure(_):
-					break
+					case .success(let record):
+						if let _ = record[DDGProfile.kIsCheckedIn] as? CKRecord.Reference {
+							isCheckedIn = true
+						} else {
+							isCheckedIn = false
+						}
+						
+					case .failure(_):
+						break
 				}
 			}
 		}
@@ -68,22 +59,22 @@ final class ProfileViewModel: ObservableObject {
 		
 		CloudKitManager.shared.fetchRecord(with: profileRecordID) { result in
 			switch result {
-			case .success(let record):
-				record[DDGProfile.kIsCheckedIn] = nil
-				record[DDGProfile.kIsCheckedInNilCheck] = nil
-
-				CloudKitManager.shared.save(record: record) { result in
-					DispatchQueue.main.async { [self] in
-						switch result {
-						case .success(_):
-							isCheckedIn = false
-						case .failure(_):
-							alertItem = AlertContext.unableToCheckInOrOut
+				case .success(let record):
+					record[DDGProfile.kIsCheckedIn] = nil
+					record[DDGProfile.kIsCheckedInNilCheck] = nil
+					
+					CloudKitManager.shared.save(record: record) { result in
+						DispatchQueue.main.async { [self] in
+							switch result {
+								case .success(_):
+									isCheckedIn = false
+								case .failure(_):
+									alertItem = AlertContext.unableToCheckInOrOut
+							}
 						}
 					}
-				}
-			case .failure(_):
-				DispatchQueue.main.async { self.alertItem = AlertContext.unableToCheckInOrOut }
+				case .failure(_):
+					DispatchQueue.main.async { self.alertItem = AlertContext.unableToCheckInOrOut }
 			}
 		}
 	}
@@ -100,7 +91,7 @@ final class ProfileViewModel: ObservableObject {
 			alertItem = AlertContext.noUserRecord
 			return
 		}
-
+		
 		// Create reference on UserRecord to the DDGProfile we created
 		userRecord[User.userProfile] = CKRecord.Reference(recordID: profileRecord.recordID, action: .none)
 		
@@ -110,30 +101,28 @@ final class ProfileViewModel: ObservableObject {
 				hideLoadingView()
 				
 				switch result {
-				case .success(let records):
-					for record in records where record.recordType == RecordType.profile {
-						existingProfileRecord = record
-						CloudKitManager.shared.profileRecordID = record.recordID
-					}
-					alertItem = AlertContext.createProfileSuccess
-				case .failure(_):
-					alertItem = AlertContext.createProfileFailure
-					break
+					case .success(let records):
+						for record in records where record.recordType == RecordType.profile {
+							existingProfileRecord = record
+							CloudKitManager.shared.profileRecordID = record.recordID
+						}
+						alertItem = AlertContext.createProfileSuccess
+						
+					case .failure(_):
+						alertItem = AlertContext.createProfileFailure
+						break
 				}
 			}
 		}
 	}
-
+	
 	func getProfile() {
 		guard let userRecord = CloudKitManager.shared.userRecord else {
 			alertItem = AlertContext.noUserRecord
 			return
 		}
 		
-		guard let profileReference = userRecord[User.userProfile] as? CKRecord.Reference else {
-			return
-		}
-		
+		guard let profileReference = userRecord[User.userProfile] as? CKRecord.Reference else { return }
 		let profileRecordID = profileReference.recordID
 		
 		showLoadingView()
@@ -142,22 +131,23 @@ final class ProfileViewModel: ObservableObject {
 				hideLoadingView()
 				
 				switch result {
-				case .success(let record):
-					// Store away the record we get back so we can edit it later
-					existingProfileRecord = record
-					
-					// Convert record into DDGProfile so we can assign the properties
-					// to show the user
-					let profile = DDGProfile(record: record)
-					
-					firstName = profile.firstName
-					lastName = profile.lastName
-					companyName = profile.companyName
-					bio = profile.bio
-					avatar = profile.createAvatarImage()
-				case .failure(_):
-					alertItem = AlertContext.unableToGetProfile
-					break
+					case .success(let record):
+						// Store away the record we get back so we can edit it later
+						existingProfileRecord = record
+						
+						// Convert record into DDGProfile so we can assign the properties
+						// to show the user
+						let profile = DDGProfile(record: record)
+						
+						firstName = profile.firstName
+						lastName = profile.lastName
+						companyName = profile.companyName
+						bio = profile.bio
+						avatar = profile.createAvatarImage()
+						
+					case .failure(_):
+						alertItem = AlertContext.unableToGetProfile
+						break
 				}
 			}
 		}
@@ -186,16 +176,26 @@ final class ProfileViewModel: ObservableObject {
 				hideLoadingView()
 				
 				switch result {
-				case .success(_):
-					alertItem = AlertContext.updateProfileSuccess
-				case .failure(_):
-					alertItem = AlertContext.unableToUpdateProfile
+					case .success(_):
+						alertItem = AlertContext.updateProfileSuccess
+					case .failure(_):
+						alertItem = AlertContext.unableToUpdateProfile
 				}
 			}
 		}
 	}
 	
 	// MARK: - Private Functions
+	private func isValidProfile() -> Bool {
+		guard !firstName.isEmpty,
+			  !lastName.isEmpty,
+			  !companyName.isEmpty,
+			  !bio.isEmpty,
+			  avatar != PlaceHolderImage.avatar,
+			  bio.count <= Bio.totalCharacter else { return false }
+		return true
+	}
+
 	private func createProfileRecord() -> CKRecord {
 		let profileRecord = CKRecord(recordType: RecordType.profile)
 		profileRecord[DDGProfile.kFirstName] = firstName

@@ -18,7 +18,7 @@ final class LocationDetailViewModel: ObservableObject {
 	@Published var checkedInProfiles: [DDGProfile] = []
 	@Published var isShowingProfileModal = false
 	@Published var alertItem: AlertItem? = nil
-
+	
 	// MARK: - Grid Items
 	let columns = [
 		GridItem(.flexible()),
@@ -29,9 +29,7 @@ final class LocationDetailViewModel: ObservableObject {
 	// MARK: - Properties
 	var location: DDGLocation
 	
-	init(location: DDGLocation) {
-		self.location = location
-	}
+	init(location: DDGLocation) { self.location = location }
 	
 	// MARK: - Functions
 	func getDirectionsToLocation() {
@@ -57,14 +55,14 @@ final class LocationDetailViewModel: ObservableObject {
 		CloudKitManager.shared.fetchRecord(with: profileRecordID) { result in
 			DispatchQueue.main.async { [self] in
 				switch result {
-				case .success(let record):
-					if let reference = record[DDGProfile.kIsCheckedIn] as? CKRecord.Reference {
-						isCheckedIn = reference.recordID == location.id
-					} else {
-						isCheckedIn = false
-					}
-				case .failure(_):
-					alertItem = AlertContext.unableToGetCheckInStatus
+					case .success(let record):
+						if let reference = record[DDGProfile.kIsCheckedIn] as? CKRecord.Reference {
+							isCheckedIn = reference.recordID == location.id
+						} else {
+							isCheckedIn = false
+						}
+					case .failure(_):
+						alertItem = AlertContext.unableToGetCheckInStatus
 				}
 			}
 		}
@@ -80,39 +78,39 @@ final class LocationDetailViewModel: ObservableObject {
 		// Create a reference to the location
 		CloudKitManager.shared.fetchRecord(with: profileRecordID) { [self] result in
 			switch result {
-			case .success(let record):
-				// Create a reference to the location
-				switch checkInStatus {
-				case .checkedIn:
-					record[DDGProfile.kIsCheckedIn] = CKRecord.Reference(recordID: location.id, action: .none)
-					record[DDGProfile.kIsCheckedInNilCheck] = 1
-				case .checkedOut:
-					record[DDGProfile.kIsCheckedIn] = nil
-					record[DDGProfile.kIsCheckedInNilCheck] = nil
-				}
-				
-				// Save the updated profile to CloudKit
-				CloudKitManager.shared.save(record: record) { result in
-					DispatchQueue.main.async { [self] in
-						switch result {
-						case .success(let record):
-							let profile = DDGProfile(record: record)
-							
-							switch checkInStatus {
-							case .checkedIn:
-								checkedInProfiles.append(profile)
-							case .checkedOut:
-								checkedInProfiles.removeAll(where: { $0.id == profile.id })
+				case .success(let record):
+					// Create a reference to the location
+					switch checkInStatus {
+						case .checkedIn:
+							record[DDGProfile.kIsCheckedIn] = CKRecord.Reference(recordID: location.id, action: .none)
+							record[DDGProfile.kIsCheckedInNilCheck] = 1
+						case .checkedOut:
+							record[DDGProfile.kIsCheckedIn] = nil
+							record[DDGProfile.kIsCheckedInNilCheck] = nil
+					}
+					
+					// Save the updated profile to CloudKit
+					CloudKitManager.shared.save(record: record) { result in
+						DispatchQueue.main.async { [self] in
+							switch result {
+								case .success(let record):
+									let profile = DDGProfile(record: record)
+									
+									switch checkInStatus {
+										case .checkedIn:
+											checkedInProfiles.append(profile)
+										case .checkedOut:
+											checkedInProfiles.removeAll(where: { $0.id == profile.id })
+									}
+									
+									isCheckedIn = checkInStatus == .checkedIn
+								case .failure(_):
+									alertItem = AlertContext.unableToUpdateProfile
 							}
-							
-							isCheckedIn = checkInStatus == .checkedIn
-						case .failure(_):
-							alertItem = AlertContext.unableToUpdateProfile
 						}
 					}
-				}
-			case .failure(_):
-				alertItem = AlertContext.unableToCheckInOrOut
+				case .failure(_):
+					alertItem = AlertContext.unableToCheckInOrOut
 			}
 		}
 	}
@@ -122,10 +120,10 @@ final class LocationDetailViewModel: ObservableObject {
 		CloudKitManager.shared.getCheckedInProfiles(for: location.id) { result in
 			DispatchQueue.main.async { [self] in
 				switch result {
-				case .success(let profiles):
-					checkedInProfiles = profiles
-				case .failure(_):
-					alertItem = AlertContext.unableToGetCheckedInProfiles
+					case .success(let profiles):
+						checkedInProfiles = profiles
+					case .failure(_):
+						alertItem = AlertContext.unableToGetCheckedInProfiles
 				}
 				
 				hideLoadingView()

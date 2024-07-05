@@ -15,11 +15,10 @@ final class LocationListViewModel: ObservableObject {
 		CloudKitManager.shared.getCheckedInProfilesDictionary { result in
 			DispatchQueue.main.async {
 				switch result {
-				case .success(let checkedInProfiles):
-					self.checkedInProfiles = checkedInProfiles
-					print(checkedInProfiles)
-				case .failure(_):
-					print("❌ Error getting back dictionary")
+					case .success(let checkedInProfiles):
+						self.checkedInProfiles = checkedInProfiles
+					case .failure(_):
+						print("❌ Error getting back dictionary")
 				}
 			}
 		}

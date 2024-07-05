@@ -17,9 +17,7 @@ final class AppTabViewModel: NSObject, ObservableObject {
 	let kHasSeenOnboardView = "hasSeenOnboardView"
 	
 	// MARK: - Computed Properties
-	var hasSeenOnboardView: Bool {
-		return UserDefaults.standard.bool(forKey: kHasSeenOnboardView)
-	}
+	var hasSeenOnboardView: Bool { return UserDefaults.standard.bool(forKey: kHasSeenOnboardView) }
 	
 	// MARK: - Functions
 	func runStartUpChecks() {
@@ -40,23 +38,23 @@ final class AppTabViewModel: NSObject, ObservableObject {
 		}
 	}
 	
+	// MARK: - File Private
 	private func checkLocationAuthorization() {
 		guard let deviceLocationManager = deviceLocationManager else { return }
 		
 		switch deviceLocationManager.authorizationStatus {
-		case .notDetermined:
-			deviceLocationManager.requestWhenInUseAuthorization()
-		case .restricted:
-			alertItem = AlertContext.locationRestricted
-		case .denied:
-			alertItem = AlertContext.locationDenied
-		case .authorizedAlways, .authorizedWhenInUse:
-			break
-		@unknown default:
-			break
+			case .notDetermined:
+				deviceLocationManager.requestWhenInUseAuthorization()
+			case .restricted:
+				alertItem = AlertContext.locationRestricted
+			case .denied:
+				alertItem = AlertContext.locationDenied
+			case .authorizedAlways, .authorizedWhenInUse:
+				break
+			@unknown default:
+				break
 		}
 	}
-	
 }
 
 extension AppTabViewModel: CLLocationManagerDelegate {

@@ -16,31 +16,21 @@ struct LocationListView: View {
 		List {
 			ForEach(locationManager.locations) { location in
 				NavigationLink(
-					destination: LocationDetailView(
-						viewModel: LocationDetailViewModel(location: location)
-					)
+					destination: LocationDetailView(viewModel: LocationDetailViewModel(location: location))
 				) {
-					LocationCell(
-						location: location,
-						profiles: viewModel.checkedInProfiles[
-							location.id,
-							default: []
-						]
-					)
+					LocationCell(location: location, profiles: viewModel.checkedInProfiles[location.id, default: []])
 				}
 			}
 		}
 		.listStyle(.plain)
 		.navigationTitle("Grub Spots")
-		.onAppear {
-			viewModel.getCheckInProfilesDictionary()
-		}
+		.onAppear { viewModel.getCheckInProfilesDictionary() }
     }
 }
 
-#Preview {
-	NavigationView {
-		LocationListView()
-	}
-}
+//#Preview {
+//	NavigationView {
+//		LocationListView()
+//	}
+//}
 

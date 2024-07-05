@@ -118,12 +118,12 @@
 		6602258F2C310B9C00B0EBE4 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				661DFB112C34D0EE00C8BA0A /* LocationDetailView */,
-				662018662C3311CE00E95AFE /* ProfileView */,
-				66FFB9D32C3209AE00E0FEDE /* LocationMapView */,
-				6640BA292C371EE30013E5F9 /* LocationListView */,
-				6620185A2C32C0B400E95AFE /* OnBoardView.swift */,
 				6640BA312C375DC40013E5F9 /* App Tab View */,
+				6640BA292C371EE30013E5F9 /* LocationListView */,
+				661DFB112C34D0EE00C8BA0A /* LocationDetailView */,
+				66FFB9D32C3209AE00E0FEDE /* LocationMapView */,
+				662018662C3311CE00E95AFE /* ProfileView */,
+				6620185A2C32C0B400E95AFE /* OnBoardView.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -134,11 +134,10 @@
 				6640BA2C2C3750650013E5F9 /* Map Annotation */,
 				662018612C32E23000E95AFE /* UIKit Components */,
 				6620185E2C32C6DE00E95AFE /* Buttons */,
-				66C927082C30D9390073FD9D /* LocationActionButton.swift */,
-				66C9270A2C30E0430073FD9D /* FirstNameAvatarView.swift */,
-				66C927042C30D3610073FD9D /* AvatarView.swift */,
+				6640BA342C378EB80013E5F9 /* Avatar Views */,
 				6620185C2C32C13000E95AFE /* LogoView.swift */,
 				663410B22C3358A400BA6C33 /* LoadingView.swift */,
+				66C927082C30D9390073FD9D /* LocationActionButton.swift */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -192,8 +191,8 @@
 		6640BA2C2C3750650013E5F9 /* Map Annotation */ = {
 			isa = PBXGroup;
 			children = (
-				6640BA2F2C3755620013E5F9 /* DDGAnnotation.swift */,
 				6640BA2D2C37507D0013E5F9 /* MapBallon.swift */,
+				6640BA2F2C3755620013E5F9 /* DDGAnnotation.swift */,
 			);
 			path = "Map Annotation";
 			sourceTree = "<group>";
@@ -205,6 +204,15 @@
 				66C926FC2C30B6FF0073FD9D /* AppTabView.swift */,
 			);
 			path = "App Tab View";
+			sourceTree = "<group>";
+		};
+		6640BA342C378EB80013E5F9 /* Avatar Views */ = {
+			isa = PBXGroup;
+			children = (
+				66C9270A2C30E0430073FD9D /* FirstNameAvatarView.swift */,
+				66C927042C30D3610073FD9D /* AvatarView.swift */,
+			);
+			path = "Avatar Views";
 			sourceTree = "<group>";
 		};
 		66C926DC2C307A3B0073FD9D = {

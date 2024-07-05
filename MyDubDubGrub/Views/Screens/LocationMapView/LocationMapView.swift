@@ -19,7 +19,7 @@ struct LocationMapView: View {
 	// MARK: - State
 	@StateObject private var viewModel = LocationMapViewModel()
 	
-    var body: some View {
+	var body: some View {
 		ZStack {
 			Map(coordinateRegion: $viewModel.region, showsUserLocation: true, annotationItems: locationManager.locations) { location in
 				MapAnnotation(coordinate: location.location.coordinate, anchorPoint: CGPoint(x: 0.5, y: 0.75)) {
@@ -43,9 +43,7 @@ struct LocationMapView: View {
 			NavigationView {
 				LocationDetailView(viewModel: LocationDetailViewModel(location: locationManager.selectedLocation!))
 					.toolbar {
-						Button(action: { viewModel.isShowingDetailView = false }, label: {
-							XDismissButton()
-						})
+						Button(action: { viewModel.isShowingDetailView = false }, label: { XDismissButton() })
 					}
 			}
 		}
@@ -53,13 +51,10 @@ struct LocationMapView: View {
 			Alert(title: alertItem.title, message: alertItem.message, dismissButton: alertItem.dismissButton)
 		})
 		.onAppear {			
-			if locationManager.locations.isEmpty {
-				viewModel.getLocations(for: locationManager)
-			}
-			
+			if locationManager.locations.isEmpty { viewModel.getLocations(for: locationManager) }
 			viewModel.getCheckedInCounts()
 		}
-    }
+	}
 }
 
 //#Preview {
