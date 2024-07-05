@@ -37,21 +37,22 @@ struct LocationDetailView: View {
 							viewModel.getDirectionsToLocation()
 						} label: {
 							LocationActionButton(imageColor: .brandPrimary, imageName: "location.fill")
-								.accessibilityLabel(Text("Get directions."))
 						}
-						
+						.accessibilityLabel(Text("Get directions."))
+
 						Link(destination: URL(string: viewModel.location.websiteURL)!, label: {
 							LocationActionButton(imageColor: .brandPrimary, imageName: "network")
-								.accessibilityLabel(Text("Goto website."))
 						})
-						
+						.accessibilityRemoveTraits(.isButton)
+						.accessibilityLabel(Text("Goto website."))
+
 						Button {
 							viewModel.callLocation()
 						} label: {
 							LocationActionButton(imageColor: .brandPrimary, imageName: "phone.fill")
-								.accessibilityLabel(Text("Call location."))
 						}
-						
+						.accessibilityLabel(Text("Call location."))
+
 						// Only show this button if we have a profile.
 						if let _ = CloudKitManager.shared.profileRecordID {
 							Button {
@@ -62,8 +63,8 @@ struct LocationDetailView: View {
 									imageColor: viewModel.isCheckedIn ? .grubRed : .brandPrimary,
 									imageName: viewModel.isCheckedIn ? "person.fill.xmark" : "person.fill.checkmark"
 								)
-								.accessibilityLabel(Text(viewModel.isCheckedIn ? "Check out of location." : "Check into location."))
 							}
+							.accessibilityLabel(Text(viewModel.isCheckedIn ? "Check out of location." : "Check into location."))
 						}
 					}
 				}
@@ -100,9 +101,11 @@ struct LocationDetailView: View {
 								ForEach(viewModel.checkedInProfiles) { profile in
 									FirstNameAvatarView(profile: profile)
 										.onTapGesture {
-											viewModel.isShowingProfileModal = true
+											viewModel.selectedProfile = profile
 										}
 										.accessibilityElement(children: .ignore)
+										.accessibilityAddTraits(.isButton)
+										.accessibilityHint(Text("Show \(profile.firstName)'s profile popup."))
 										.accessibilityLabel(Text("\(profile.firstName) \(profile.lastName)"))
 								}
 							})
@@ -114,7 +117,8 @@ struct LocationDetailView: View {
 				
 				Spacer()
 			}
-			
+			.accessibilityHidden(viewModel.isShowingProfileModal)
+
 			if viewModel.isShowingProfileModal {
 				Color(.systemBackground)
 					.ignoresSafeArea()
@@ -122,8 +126,11 @@ struct LocationDetailView: View {
 					.transition(AnyTransition.opacity.animation(.easeInOut(duration: 0.35)))
 					.animation(.easeOut)
 					.zIndex(1)
+					.accessibilityHidden(true)
 				
-				ProfileModalView(profile: DDGProfile(record: MockData.profile), isShowingProfileModal: $viewModel.isShowingProfileModal)
+				ProfileModalView(profile: viewModel.selectedProfile!, isShowingProfileModal: $viewModel.isShowingProfileModal)
+// This doesn't work, but is the prefered way to do it.
+//					.accessibilityAddTraits(.isModal)
 					.transition(.opacity.combined(with: .slide))
 					.animation(.easeOut)
 					.zIndex(2)
