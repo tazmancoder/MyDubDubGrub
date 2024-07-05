@@ -67,6 +67,7 @@
 		6640BA2D2C37507D0013E5F9 /* MapBallon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapBallon.swift; sourceTree = "<group>"; };
 		6640BA2F2C3755620013E5F9 /* DDGAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DDGAnnotation.swift; sourceTree = "<group>"; };
 		6640BA322C375DD70013E5F9 /* AppTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabViewModel.swift; sourceTree = "<group>"; };
+		6640BA352C379F0D0013E5F9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		66C926E52C307A3B0073FD9D /* MyDubDubGrub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyDubDubGrub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		66C926E82C307A3B0073FD9D /* MyDubDubGrubApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDubDubGrubApp.swift; sourceTree = "<group>"; };
 		66C926EC2C307A3B0073FD9D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -234,6 +235,7 @@
 		66C926E72C307A3B0073FD9D /* MyDubDubGrub */ = {
 			isa = PBXGroup;
 			children = (
+				6640BA352C379F0D0013E5F9 /* Info.plist */,
 				66DBAC702C31BA650023B503 /* Utilities */,
 				66DBAC692C31A6220023B503 /* Model */,
 				6602258E2C310B7300B0EBE4 /* Views */,
@@ -550,10 +552,11 @@
 				DEVELOPMENT_TEAM = SVT2GB99S9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MyDubDubGrub/Info.plist;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Dub Dub Grub needs access to your location, so we can show you on the map.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -584,10 +587,11 @@
 				DEVELOPMENT_TEAM = SVT2GB99S9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MyDubDubGrub/Info.plist;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Dub Dub Grub needs access to your location, so we can show you on the map.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
