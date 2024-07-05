@@ -6,6 +6,7 @@
 //
 
 import MapKit
+import CloudKit
 
 final class LocationMapViewModel: ObservableObject {
 	// MARK: - Properties
@@ -21,7 +22,8 @@ final class LocationMapViewModel: ObservableObject {
 		)
 	)
 	@Published var isShowingDetailView = false
-		
+	@Published var checkedInProfiles: [CKRecord.ID: Int] = [:]
+	
 	func getLocations(for locationManager: LocationManager) {
 		CloudKitManager.shared.getLocations { result in
 			DispatchQueue.main.async {
@@ -30,6 +32,19 @@ final class LocationMapViewModel: ObservableObject {
 					locationManager.locations = locations
 				case .failure(_):
 					self.alertItem = AlertContext.unableToGetLocations
+				}
+			}
+		}
+	}
+	
+	func getCheckedInCounts() {
+		CloudKitManager.shared.getCheckedInProfilesCount { result in
+			DispatchQueue.main.async {
+				switch result {
+				case .success(let checkedInProfiles):
+					self.checkedInProfiles = checkedInProfiles
+				case .failure(_):
+					break
 				}
 			}
 		}
