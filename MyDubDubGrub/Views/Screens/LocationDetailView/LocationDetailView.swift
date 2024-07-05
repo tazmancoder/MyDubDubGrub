@@ -53,6 +53,7 @@ struct LocationDetailView: View {
 						if let _ = CloudKitManager.shared.profileRecordID {
 							Button {
 								viewModel.updateCheckInStatus(to: viewModel.isCheckedIn ? .checkedOut : .checkedIn)
+								playHaptic()
 							} label: {
 								LocationActionButton(
 									imageColor: viewModel.isCheckedIn ? .grubRed : .brandPrimary,
