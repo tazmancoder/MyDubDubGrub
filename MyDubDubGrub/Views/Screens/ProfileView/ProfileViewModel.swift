@@ -19,6 +19,7 @@ final class ProfileViewModel: ObservableObject {
 	@Published var avatar = PlaceHolderImage.avatar
 	@Published var isShowingPhotoPicker = false
 	@Published var isLoading = false
+	@Published var isCheckedIn = false
 	@Published var alertItem: AlertItem?
 
 	private var existingProfileRecord: CKRecord? {
@@ -36,6 +37,55 @@ final class ProfileViewModel: ObservableObject {
 			  avatar != PlaceHolderImage.avatar,
 			  bio.count <= Bio.totalCharacter else { return false }
 		return true
+	}
+	
+	func getCheckedInStatus() {
+		// Retrieve the DDGProfile
+		guard let profileRecordID = CloudKitManager.shared.profileRecordID else { return }
+		
+		CloudKitManager.shared.fetchRecord(with: profileRecordID) { result in
+			DispatchQueue.main.async { [self] in
+				switch result {
+				case .success(let record):
+					if let _ = record[DDGProfile.kIsCheckedIn] as? CKRecord.Reference {
+						isCheckedIn = true
+					} else {
+						isCheckedIn = false
+					}
+				case .failure(_):
+					break
+				}
+			}
+		}
+	}
+	
+	func checkOut() {
+		// Retrieve the DDGProfile
+		guard let profileRecordID = CloudKitManager.shared.profileRecordID else {
+			alertItem = AlertContext.unableToGetProfile
+			return
+		}
+		
+		CloudKitManager.shared.fetchRecord(with: profileRecordID) { result in
+			switch result {
+			case .success(let record):
+				record[DDGProfile.kIsCheckedIn] = nil
+				record[DDGProfile.kIsCheckedInNilCheck] = nil
+
+				CloudKitManager.shared.save(record: record) { result in
+					DispatchQueue.main.async { [self] in
+						switch result {
+						case .success(_):
+							isCheckedIn = false
+						case .failure(_):
+							alertItem = AlertContext.unableToCheckInOrOut
+						}
+					}
+				}
+			case .failure(_):
+				DispatchQueue.main.async { self.alertItem = AlertContext.unableToCheckInOrOut }
+			}
+		}
 	}
 	
 	func createProfile() {
@@ -63,6 +113,7 @@ final class ProfileViewModel: ObservableObject {
 				case .success(let records):
 					for record in records where record.recordType == RecordType.profile {
 						existingProfileRecord = record
+						CloudKitManager.shared.profileRecordID = record.recordID
 					}
 					alertItem = AlertContext.createProfileSuccess
 				case .failure(_):
@@ -135,9 +186,9 @@ final class ProfileViewModel: ObservableObject {
 				hideLoadingView()
 				
 				switch result {
-				case .success(let success):
+				case .success(_):
 					alertItem = AlertContext.updateProfileSuccess
-				case .failure(let failure):
+				case .failure(_):
 					alertItem = AlertContext.unableToUpdateProfile
 				}
 			}
