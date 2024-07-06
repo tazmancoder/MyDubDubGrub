@@ -9,6 +9,10 @@ import SwiftUI
 import UIKit
 
 struct LocationDetailView: View {
+	// MARK: - Environment
+	@Environment(\.sizeCategory) var sizeCategory
+	
+	// MARK: - Properties
 	@ObservedObject var viewModel: LocationDetailViewModel
 	
 	var body: some View {
@@ -97,7 +101,7 @@ struct LocationDetailView: View {
 						}
 					} else {
 						ScrollView(showsIndicators: false) {
-							LazyVGrid(columns: viewModel.columns, content: {
+							LazyVGrid(columns: viewModel.determineColumns(for: sizeCategory), content: {
 								ForEach(viewModel.checkedInProfiles) { profile in
 									FirstNameAvatarView(profile: profile)
 										.onTapGesture {
@@ -120,7 +124,7 @@ struct LocationDetailView: View {
 			.accessibilityHidden(viewModel.isShowingProfileModal)
 
 			if viewModel.isShowingProfileModal {
-				Color(.systemBackground)
+				Color(.black)
 					.ignoresSafeArea()
 					.opacity(0.9)
 					.transition(AnyTransition.opacity.animation(.easeInOut(duration: 0.35)))
@@ -129,8 +133,6 @@ struct LocationDetailView: View {
 					.accessibilityHidden(true)
 				
 				ProfileModalView(profile: viewModel.selectedProfile!, isShowingProfileModal: $viewModel.isShowingProfileModal)
-// This doesn't work, but is the prefered way to do it.
-//					.accessibilityAddTraits(.isModal)
 					.transition(.opacity.combined(with: .slide))
 					.animation(.easeOut)
 					.zIndex(2)
@@ -148,13 +150,13 @@ struct LocationDetailView: View {
 	}
 }
 
-#Preview {
-	LocationDetailView(
-		viewModel: LocationDetailViewModel(
-			location: DDGLocation(record: MockData.location)
-		)
-	)
-}
+//#Preview {
+//	NavigationView {
+//		LocationDetailView(
+//			viewModel: LocationDetailViewModel(location: DDGLocation(record: MockData.chipotle))
+//		)
+//	}
+//}
 
 // MARK: - Sub Views
 struct BannerImageView: View {
@@ -187,10 +189,8 @@ struct DescriptionView: View {
 	
 	var body: some View {
 		Text(text)
-			.lineLimit(4)
 			.minimumScaleFactor(0.75)
-			.multilineTextAlignment(.leading)
-			.frame(height: 70)
+			.fixedSize(horizontal: false, vertical: true)
 			.padding(.horizontal)
 	}
 }

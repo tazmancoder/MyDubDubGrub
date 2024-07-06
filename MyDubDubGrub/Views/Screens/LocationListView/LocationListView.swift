@@ -8,16 +8,17 @@
 import SwiftUI
 
 struct LocationListView: View {
-	// MARK: - EnvironmentObject
+	// MARK: - Environment
+	@Environment(\.sizeCategory) var sizeCategory
 	@EnvironmentObject private var locationManager: LocationManager
+	
+	// MARK: - State
 	@StateObject private var viewModel = LocationListViewModel()
 	
     var body: some View {
 		List {
 			ForEach(locationManager.locations) { location in
-				NavigationLink(
-					destination: LocationDetailView(viewModel: LocationDetailViewModel(location: location))
-				) {
+				NavigationLink(destination: viewModel.createLocationDetailView(for: location, in: sizeCategory)) {
 					LocationCell(location: location, profiles: viewModel.checkedInProfiles[location.id, default: []])
 						.accessibilityElement(children: .ignore)
 						.accessibilityLabel(Text(viewModel.createVoiceOverSummary(for: location)))

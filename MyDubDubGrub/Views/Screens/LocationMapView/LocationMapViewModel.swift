@@ -7,6 +7,7 @@
 
 import MapKit
 import CloudKit
+import SwiftUI
 
 final class LocationMapViewModel: ObservableObject {
 	// MARK: - Properties
@@ -49,5 +50,14 @@ final class LocationMapViewModel: ObservableObject {
 		let personPlurality = count == 1 ? "Person" : "People"
 		
 		return "\(location.name) \(count) \(personPlurality) checked in."
+	}
+	
+	@ViewBuilder
+	func createLocationDetailView(for location: DDGLocation, in sizeCategory: ContentSizeCategory) -> some View {
+		if sizeCategory >= .accessibilityMedium {
+			LocationDetailView(viewModel: LocationDetailViewModel(location: location)).embedInScrollView()
+		} else {
+			LocationDetailView(viewModel: LocationDetailViewModel(location: location))
+		}
 	}
 }

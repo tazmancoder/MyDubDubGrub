@@ -19,13 +19,6 @@ final class LocationDetailViewModel: ObservableObject {
 	@Published var isShowingProfileModal = false
 	@Published var alertItem: AlertItem? = nil
 	
-	// MARK: - Grid Items
-	let columns = [
-		GridItem(.flexible()),
-		GridItem(.flexible()),
-		GridItem(.flexible())
-	]
-	
 	// MARK: - Properties
 	var location: DDGLocation
 	var selectedProfile: DDGProfile? {
@@ -35,6 +28,11 @@ final class LocationDetailViewModel: ObservableObject {
 	init(location: DDGLocation) { self.location = location }
 	
 	// MARK: - Functions
+	func determineColumns(for sizeCategory: ContentSizeCategory) -> [GridItem] {
+		let numberOfColumns = sizeCategory >= .accessibilityMedium ? 1 : 3
+		return Array(repeating: GridItem(.flexible()), count: numberOfColumns)
+	}
+	
 	func getDirectionsToLocation() {
 		let placemark = MKPlacemark(coordinate: location.location.coordinate)
 		let mapItem = MKMapItem(placemark: placemark)

@@ -8,11 +8,15 @@
 import SwiftUI
 
 struct FirstNameAvatarView: View {
-	var profile: DDGProfile
+	// MARK: - Environment
+	@Environment(\.sizeCategory) var sizeCategory
 	
+	// MARK: - Properties
+	var profile: DDGProfile
+
     var body: some View {
 		VStack {
-			AvatarView(image: profile.createAvatarImage(), size: 64)
+			AvatarView(image: profile.createAvatarImage(), size: sizeCategory >= .accessibilityMedium ? 100 : 64)
 			Text(profile.firstName)
 				.bold()
 				.lineLimit(1)

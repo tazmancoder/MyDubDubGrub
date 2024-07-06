@@ -15,6 +15,7 @@ import MapKit
 struct LocationMapView: View {
 	// MARK: - Environment Objects
 	@EnvironmentObject private var locationManager: LocationManager
+	@Environment(\.sizeCategory) var sizeCategory
 	
 	// MARK: - State
 	@StateObject private var viewModel = LocationMapViewModel()
@@ -43,10 +44,8 @@ struct LocationMapView: View {
 		}
 		.sheet(isPresented: $viewModel.isShowingDetailView) {
 			NavigationView {
-				LocationDetailView(viewModel: LocationDetailViewModel(location: locationManager.selectedLocation!))
-					.toolbar {
-						Button(action: { viewModel.isShowingDetailView = false }, label: { XDismissButton() })
-					}
+				viewModel.createLocationDetailView(for: locationManager.selectedLocation!, in: sizeCategory)
+					.toolbar { Button(action: { viewModel.isShowingDetailView = false }, label: { XDismissButton() }) }
 			}
 		}
 		.alert(item: $viewModel.alertItem, content: { alertItem in
