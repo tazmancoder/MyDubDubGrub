@@ -24,6 +24,7 @@
 		6640BA2E2C37507D0013E5F9 /* MapBallon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6640BA2D2C37507D0013E5F9 /* MapBallon.swift */; };
 		6640BA302C3755620013E5F9 /* DDGAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6640BA2F2C3755620013E5F9 /* DDGAnnotation.swift */; };
 		6640BA332C375DD70013E5F9 /* AppTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6640BA322C375DD70013E5F9 /* AppTabViewModel.swift */; };
+		6697CA902C38D60200F422E0 /* ProfileSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6697CA8F2C38D60200F422E0 /* ProfileSheetView.swift */; };
 		66C926E92C307A3B0073FD9D /* MyDubDubGrubApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C926E82C307A3B0073FD9D /* MyDubDubGrubApp.swift */; };
 		66C926ED2C307A3B0073FD9D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66C926EC2C307A3B0073FD9D /* Assets.xcassets */; };
 		66C926F02C307A3B0073FD9D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66C926EF2C307A3B0073FD9D /* Preview Assets.xcassets */; };
@@ -68,6 +69,7 @@
 		6640BA2F2C3755620013E5F9 /* DDGAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DDGAnnotation.swift; sourceTree = "<group>"; };
 		6640BA322C375DD70013E5F9 /* AppTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabViewModel.swift; sourceTree = "<group>"; };
 		6640BA352C379F0D0013E5F9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		6697CA8F2C38D60200F422E0 /* ProfileSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSheetView.swift; sourceTree = "<group>"; };
 		66C926E52C307A3B0073FD9D /* MyDubDubGrub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyDubDubGrub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		66C926E82C307A3B0073FD9D /* MyDubDubGrubApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDubDubGrubApp.swift; sourceTree = "<group>"; };
 		66C926EC2C307A3B0073FD9D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 				661DFB122C34D13200C8BA0A /* LocationDetailViewModel.swift */,
 				66C927062C30D4C50073FD9D /* LocationDetailView.swift */,
 				661DFB142C34DDD300C8BA0A /* ProfileModalView.swift */,
+				6697CA8F2C38D60200F422E0 /* ProfileSheetView.swift */,
 			);
 			path = LocationDetailView;
 			sourceTree = "<group>";
@@ -388,6 +391,7 @@
 				66DBAC6F2C31B0090023B503 /* MockData.swift in Sources */,
 				661DFB152C34DDD300C8BA0A /* ProfileModalView.swift in Sources */,
 				66C927092C30D9390073FD9D /* LocationActionButton.swift in Sources */,
+				6697CA902C38D60200F422E0 /* ProfileSheetView.swift in Sources */,
 				66FFB9D82C32141900E0FEDE /* LocationManager.swift in Sources */,
 				66DBAC6B2C31A6780023B503 /* DDGLocation.swift in Sources */,
 				66FFB9D22C31D37F00E0FEDE /* AlertItem.swift in Sources */,

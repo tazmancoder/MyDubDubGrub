@@ -104,13 +104,13 @@ struct LocationDetailView: View {
 							LazyVGrid(columns: viewModel.determineColumns(for: sizeCategory), content: {
 								ForEach(viewModel.checkedInProfiles) { profile in
 									FirstNameAvatarView(profile: profile)
-										.onTapGesture {
-											viewModel.selectedProfile = profile
-										}
 										.accessibilityElement(children: .ignore)
 										.accessibilityAddTraits(.isButton)
 										.accessibilityHint(Text("Show \(profile.firstName)'s profile popup."))
 										.accessibilityLabel(Text("\(profile.firstName) \(profile.lastName)"))
+										.onTapGesture {
+											viewModel.show(profile: profile, in: sizeCategory)
+										}
 								}
 							})
 						}
@@ -141,6 +141,12 @@ struct LocationDetailView: View {
 		.onAppear {
 			viewModel.getCheckedInProfiles()
 			viewModel.getCheckedInStatus()
+		}
+		.sheet(isPresented: $viewModel.isShowingProfileSheet) {
+			NavigationView {
+				ProfileSheetView(profile: viewModel.selectedProfile!)
+					.toolbar { Button(action: { viewModel.isShowingProfileSheet = false }, label: { XDismissButton() }) }
+			}
 		}
 		.alert(item: $viewModel.alertItem, content: { alertItem in
 			Alert(title: alertItem.title, message: alertItem.message, dismissButton: alertItem.dismissButton)
