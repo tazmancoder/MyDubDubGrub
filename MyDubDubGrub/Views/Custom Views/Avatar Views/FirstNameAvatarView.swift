@@ -22,6 +22,10 @@ struct FirstNameAvatarView: View {
 				.lineLimit(1)
 				.minimumScaleFactor(0.75)
 		}
+		.accessibilityElement(children: .ignore)
+		.accessibilityAddTraits(.isButton)
+		.accessibilityHint(Text("Show \(profile.firstName)'s profile popup."))
+		.accessibilityLabel(Text("\(profile.firstName) \(profile.lastName)"))
     }
 }
 

@@ -23,7 +23,12 @@ final class LocationDetailViewModel: ObservableObject {
 	// MARK: - Properties
 	var location: DDGLocation
 	var selectedProfile: DDGProfile?
+	var buttonColor: Color { isCheckedIn ? .grubRed : .brandPrimary }
+	var buttonImageTitle: String { isCheckedIn ? "person.fill.xmark" : "person.fill.checkmark" }
 
+	// A11y: short for accessibility, lots of devs use that to describe their accessibility labels
+	var buttonA11yLabel: String { isCheckedIn ? "Check out of location." : "Check into location." }
+	
 	init(location: DDGLocation) { self.location = location }
 	
 	// MARK: - Functions
