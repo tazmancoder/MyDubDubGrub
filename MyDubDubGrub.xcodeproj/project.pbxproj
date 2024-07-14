@@ -11,6 +11,7 @@
 		660225892C3105B400B0EBE4 /* CustomModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660225882C3105B400B0EBE4 /* CustomModifiers.swift */; };
 		6602258B2C31060100B0EBE4 /* View+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6602258A2C31060100B0EBE4 /* View+Ext.swift */; };
 		6602258D2C31073A00B0EBE4 /* DDGButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6602258C2C31073900B0EBE4 /* DDGButton.swift */; };
+		661DB4592C446C0600C04FDE /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661DB4582C446C0600C04FDE /* HapticManager.swift */; };
 		661DFB132C34D13200C8BA0A /* LocationDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661DFB122C34D13200C8BA0A /* LocationDetailViewModel.swift */; };
 		661DFB152C34DDD300C8BA0A /* ProfileModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661DFB142C34DDD300C8BA0A /* ProfileModalView.swift */; };
 		6620185B2C32C0B400E95AFE /* OnBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6620185A2C32C0B400E95AFE /* OnBoardView.swift */; };
@@ -55,6 +56,7 @@
 		660225882C3105B400B0EBE4 /* CustomModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomModifiers.swift; sourceTree = "<group>"; };
 		6602258A2C31060100B0EBE4 /* View+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Ext.swift"; sourceTree = "<group>"; };
 		6602258C2C31073900B0EBE4 /* DDGButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DDGButton.swift; sourceTree = "<group>"; };
+		661DB4582C446C0600C04FDE /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
 		661DFB122C34D13200C8BA0A /* LocationDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailViewModel.swift; sourceTree = "<group>"; };
 		661DFB142C34DDD300C8BA0A /* ProfileModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModalView.swift; sourceTree = "<group>"; };
 		6620185A2C32C0B400E95AFE /* OnBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardView.swift; sourceTree = "<group>"; };
@@ -306,6 +308,7 @@
 			children = (
 				66DBAC712C31BA9D0023B503 /* CloudKitManager.swift */,
 				66FFB9D72C32141900E0FEDE /* LocationManager.swift */,
+				661DB4582C446C0600C04FDE /* HapticManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -394,6 +397,7 @@
 				6697CA902C38D60200F422E0 /* ProfileSheetView.swift in Sources */,
 				66FFB9D82C32141900E0FEDE /* LocationManager.swift in Sources */,
 				66DBAC6B2C31A6780023B503 /* DDGLocation.swift in Sources */,
+				661DB4592C446C0600C04FDE /* HapticManager.swift in Sources */,
 				66FFB9D22C31D37F00E0FEDE /* AlertItem.swift in Sources */,
 				6640BA302C3755620013E5F9 /* DDGAnnotation.swift in Sources */,
 				66C927072C30D4C50073FD9D /* LocationDetailView.swift in Sources */,

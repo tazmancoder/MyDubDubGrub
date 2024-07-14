@@ -61,7 +61,6 @@ struct LocationDetailView: View {
 						if let _ = CloudKitManager.shared.profileRecordID {
 							Button {
 								viewModel.updateCheckInStatus(to: viewModel.isCheckedIn ? .checkedOut : .checkedIn)
-								playHaptic()
 							} label: {
 								LocationActionButton(
 									imageColor: viewModel.isCheckedIn ? .grubRed : .brandPrimary,
@@ -69,6 +68,7 @@ struct LocationDetailView: View {
 								)
 							}
 							.accessibilityLabel(Text(viewModel.isCheckedIn ? "Check out of location." : "Check into location."))
+							.disabled(viewModel.isLoading)
 						}
 					}
 				}
@@ -109,7 +109,7 @@ struct LocationDetailView: View {
 										.accessibilityHint(Text("Show \(profile.firstName)'s profile popup."))
 										.accessibilityLabel(Text("\(profile.firstName) \(profile.lastName)"))
 										.onTapGesture {
-											viewModel.show(profile: profile, in: sizeCategory)
+											viewModel.show(profile, in: sizeCategory)
 										}
 								}
 							})
@@ -118,8 +118,6 @@ struct LocationDetailView: View {
 					
 					if viewModel.isLoading { LoadingView() }
 				}
-				
-				Spacer()
 			}
 			.accessibilityHidden(viewModel.isShowingProfileModal)
 
@@ -148,9 +146,7 @@ struct LocationDetailView: View {
 					.toolbar { Button(action: { viewModel.isShowingProfileSheet = false }, label: { XDismissButton() }) }
 			}
 		}
-		.alert(item: $viewModel.alertItem, content: { alertItem in
-			Alert(title: alertItem.title, message: alertItem.message, dismissButton: alertItem.dismissButton)
-		})
+		.alert(item: $viewModel.alertItem, content: { $0.alert })
 		.navigationTitle(viewModel.location.name)
 		.navigationBarTitleDisplayMode(.inline)
 	}
@@ -165,7 +161,7 @@ struct LocationDetailView: View {
 //}
 
 // MARK: - Sub Views
-struct BannerImageView: View {
+fileprivate struct BannerImageView: View {
 	// MARK: - Properties
 	var image: UIImage
 	
@@ -178,7 +174,8 @@ struct BannerImageView: View {
 	}
 }
 
-struct AddressView: View {
+
+fileprivate struct AddressView: View {
 	// MARK: - Properites
 	var address: String
 	
@@ -189,7 +186,8 @@ struct AddressView: View {
 	}
 }
 
-struct DescriptionView: View {
+
+fileprivate struct DescriptionView: View {
 	// MARK: - Properties
 	var text: String
 	

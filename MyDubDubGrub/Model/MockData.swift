@@ -69,8 +69,8 @@ struct MockData {
 		record[DDGProfile.kAvatar] = PlaceHolderImage.avatar.convertToCKAsset()
 		record[DDGProfile.kBio] = "Indie iOS developer crafting unique and innovative productivity apps for enhanced efficiency."
 		record[DDGProfile.kCompanyName] = "Apple Enthusiast & Indie Dev"
-		record[DDGProfile.kFirstName] = "Mark"
-		record[DDGProfile.kLastName] = "Perryman"
+		record[DDGProfile.kFirstName] = "SuperlongfirstName"
+		record[DDGProfile.kLastName] = "VerysuperLonglastname"
 		record[DDGProfile.kIsCheckedIn] = nil
 		
 		return record
