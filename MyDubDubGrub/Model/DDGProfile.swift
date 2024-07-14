@@ -38,7 +38,7 @@ struct DDGProfile: Identifiable {
 	}
 	
 	// MARK: - Functions
-	func createAvatarImage() -> UIImage {
+	var avatarImage: UIImage {
 		guard let avatar = avatar else { return PlaceHolderImage.avatar }
 		return avatar.convertToUIImage(in: .square)
 	}

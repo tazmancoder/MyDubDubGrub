@@ -16,7 +16,7 @@ struct FirstNameAvatarView: View {
 
     var body: some View {
 		VStack {
-			AvatarView(image: profile.createAvatarImage(), size: sizeCategory >= .accessibilityMedium ? 100 : 64)
+			AvatarView(image: profile.avatarImage, size: sizeCategory >= .accessibilityMedium ? 100 : 64)
 			Text(profile.firstName)
 				.bold()
 				.lineLimit(1)

@@ -47,7 +47,7 @@ struct ProfileModalView: View {
 					.padding(5)
 			}, alignment: .topTrailing)
 			
-			Image(uiImage: profile.createAvatarImage())
+			Image(uiImage: profile.avatarImage)
 				.resizable()
 				.scaledToFill()
 				.frame(width: 110, height: 110)

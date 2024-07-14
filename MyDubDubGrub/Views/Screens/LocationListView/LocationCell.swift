@@ -14,7 +14,7 @@ struct LocationCell: View {
 	
 	var body: some View {
 		HStack {
-			Image(uiImage: location.createSquareImage())
+			Image(uiImage: location.squareImage)
 				.resizable()
 				.scaledToFit()
 				.frame(width: 70, height: 70)
@@ -36,9 +36,9 @@ struct LocationCell: View {
 					HStack {
 						ForEach(profiles.indices, id: \.self) { index in
 							if index <= 3 {
-								AvatarView(image: profiles[index].createAvatarImage(), size: 30)
+								AvatarView(image: profiles[index].avatarImage, size: 30)
 							} else if index == 4 {
-								AdditionalProfileView(number: profiles.count - 4)
+								AdditionalProfileView(number: min(profiles.count - 4, 99))
 							}
 						}
 					}
