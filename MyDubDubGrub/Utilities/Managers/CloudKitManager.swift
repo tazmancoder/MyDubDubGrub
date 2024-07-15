@@ -136,20 +136,20 @@ final class CloudKitManager {
 	}
 	
 	
-	func getCheckedInProfilesCount(completed: @escaping (Result<[CKRecord.ID: Int], Error>) -> Void) {
+	func getCheckedInProfilesCount() async throws -> [CKRecord.ID: Int] {
 		let predicate = NSPredicate(format: "isCheckedInNilCheck == 1")
 		let query = CKQuery(recordType: RecordType.profile, predicate: predicate)
-		let operation = CKQueryOperation(query: query)
-		// This is how you could limit the scope of what you actual download from CloudKit
-		operation.desiredKeys = [DDGProfile.kIsCheckedIn]
 		
 		var checkedInProfiles: [CKRecord.ID: Int] = [:]
 		
-		// This operation fires off has it receives the records.
+		// This operation fires off as it receives the records.
 		// Build our dictionary of [CKRecord.ID: [DDGProfile]]
-		operation.recordFetchedBlock = { record in
+		let (matchedResults, _) = try await container.publicCloudDatabase.records(matching: query, desiredKeys: [DDGProfile.kIsCheckedIn])
+		let records = matchedResults.compactMap { _, result in try? result.get() }
+		
+		for record in records {
 			// Check to make sure we have a reference to a location
-			guard let locationReference = record[DDGProfile.kIsCheckedIn] as? CKRecord.Reference else { return }
+			guard let locationReference = record[DDGProfile.kIsCheckedIn] as? CKRecord.Reference else { continue }
 			
 			// Now get the count for each location
 			if let count = checkedInProfiles[locationReference.recordID] {
@@ -159,67 +159,21 @@ final class CloudKitManager {
 			}
 		}
 		
-		// When everything is done and we've downloaded all records
-		operation.queryCompletionBlock = { cursor, error in
-			// WHAT IS THE CURSOR?
-			// The cursor above represents you place in the list of all the records your downloading
-			// Basically if you've got a 1000 records to download and CloudKit determines it can
-			// return 100 records to you, then the cursor will be set at record 101 and when it down-
-			// loads again it will pick up at record 101 and download whatever limit it can at that
-			// time and then reset the cursor to that place in line.
-			
-			guard error == nil else {
-				completed(.failure(error!))
-				return
-			}
-			
-			// Handle the cursor in later video
-			completed(.success(checkedInProfiles))
-		}
-		
-		// Now add the operation so that it will fire off
-		CKContainer.default().publicCloudDatabase.add(operation)
+		return checkedInProfiles
 	}
 
 	// MARK: - Convience API Stuff
-	func batchSave(records: [CKRecord], completed: @escaping (Result<[CKRecord], Error>) -> Void) {
-		// Create CKOperation to save our User and Profile Records
-		let operation = CKModifyRecordsOperation(recordsToSave: records)
-		operation.modifyRecordsCompletionBlock = { savedRecords, _, error in
-			// Make sure we have savedRecords
-			guard let savedRecords = savedRecords, error == nil else {
-				completed(.failure(error!))
-				return
-			}
-			
-			completed(.success(savedRecords))
-		}
-		
-		// Adding the operation to send all these records to the cloud
-		CKContainer.default().publicCloudDatabase.add(operation)
+	func batchSave(records: [CKRecord]) async throws -> [CKRecord] {
+		// Get all the records
+		let (savedResults, _) = try await container.publicCloudDatabase.modifyRecords(saving: records, deleting: [])
+		return savedResults.compactMap { _, result in try? result.get() }
 	}
 	
-	func save(record: CKRecord, completed:  @escaping (Result<CKRecord, Error>) -> Void) {
-		CKContainer.default().publicCloudDatabase.save(record) { record, error in
-			guard let record = record, error == nil else {
-				print(error!.localizedDescription)
-				completed(.failure(error!))
-				return
-			}
-			
-			completed(.success(record))
-		}
+	func save(record: CKRecord) async throws -> CKRecord {
+		return try await container.publicCloudDatabase.save(record)
 	}
 	
-	func fetchRecord(with id: CKRecord.ID, completed:  @escaping (Result<CKRecord, Error>) -> Void) {
-		CKContainer.default().publicCloudDatabase.fetch(withRecordID: id) { record, error in
-			guard let record = record, error == nil else {
-				print(error!.localizedDescription)
-				completed(.failure(error!))
-				return
-			}
-			
-			completed(.success(record))
-		}
+	func fetchRecord(with id: CKRecord.ID) async throws -> CKRecord {
+		return try await container.publicCloudDatabase.record(for: id)
 	}
 }

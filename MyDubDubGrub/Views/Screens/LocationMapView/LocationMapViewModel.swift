@@ -50,7 +50,7 @@ extension LocationMapView {
 		}
 		
 		
-		func locationManager(_ manager: CLLocationManager, didFailWithError error: any Error) {
+		func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
 			alertItem = AlertContext.didFailToGetLocation
 		}
 		
@@ -67,16 +67,23 @@ extension LocationMapView {
 		
 		
 		func getCheckedInCounts() {
-			CloudKitManager.shared.getCheckedInProfilesCount { result in
-				DispatchQueue.main.async { [self] in
-					switch result {
-						case .success(let checkedInProfiles):
-							self.checkedInProfiles = checkedInProfiles
-						case .failure(_):
-							alertItem = AlertContext.checkedInCount
-					}
+			Task {
+				do {
+					checkedInProfiles = try await CloudKitManager.shared.getCheckedInProfilesCount()
+				} catch {
+					alertItem = AlertContext.checkedInCount
 				}
 			}
+//			CloudKitManager.shared.getCheckedInProfilesCount { result in
+//				DispatchQueue.main.async { [self] in
+//					switch result {
+//						case .success(let checkedInProfiles):
+//							self.checkedInProfiles = checkedInProfiles
+//						case .failure(_):
+//							alertItem = AlertContext.checkedInCount
+//					}
+//				}
+//			}
 		}
 		
 		
