@@ -22,8 +22,8 @@ struct AppTabView: View {
 			NavigationView { ProfileView() }
 				.tabItem { Label(title: { Text("Profile") }, icon: { Image(systemName: "person") }) }
 		}
-		.onAppear {
-			CloudKitManager.shared.getUserRecord()
+		.task {
+			try? await CloudKitManager.shared.getUserRecord()
 			viewModel.checkIfHasSeenOnboard()
 		}
 		.sheet(isPresented: $viewModel.isShowingOnboardView) {

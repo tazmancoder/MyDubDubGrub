@@ -11,7 +11,7 @@ import CloudKit
 
 enum CheckInStatus { case checkedIn, checkedOut }
 
-final class LocationDetailViewModel: ObservableObject {
+@MainActor final class LocationDetailViewModel: ObservableObject {
 	// MARK: - Published Properties
 	@Published var isCheckedIn = false
 	@Published var isLoading = false
@@ -130,18 +130,28 @@ final class LocationDetailViewModel: ObservableObject {
 	
 	func getCheckedInProfiles() {
 		showLoadingView()
-		CloudKitManager.shared.getCheckedInProfiles(for: location.id) { result in
-			DispatchQueue.main.async { [self] in
-				switch result {
-					case .success(let profiles):
-						checkedInProfiles = profiles
-					case .failure(_):
-						alertItem = AlertContext.unableToGetCheckedInProfiles
-				}
-				
+		
+		Task {
+			do {
+				checkedInProfiles = try await CloudKitManager.shared.getCheckedInProfiles(for: location.id)
 				hideLoadingView()
+			} catch {
+				hideLoadingView()
+				alertItem = AlertContext.unableToGetCheckedInProfiles
 			}
 		}
+//		CloudKitManager.shared.getCheckedInProfiles(for: location.id) { result in
+//			DispatchQueue.main.async { [self] in
+//				switch result {
+//					case .success(let profiles):
+//						checkedInProfiles = profiles
+//					case .failure(_):
+//						alertItem = AlertContext.unableToGetCheckedInProfiles
+//				}
+//				
+//				hideLoadingView()
+//			}
+//		}
 	}
 	
 	

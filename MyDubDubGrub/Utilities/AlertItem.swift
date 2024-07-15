@@ -52,8 +52,8 @@ struct AlertContext {
 	)
 
 	static let didFailToGetLocation = AlertItem(
-		title: Text("Location Failed"),
-		message: Text("Location services was unable to retrieve your current location. Please try again later."),
+		title: Text("Location Error"),
+		message: Text("An error occurred retrieving your location. Please try again later."),
 		dismissButton: .default(Text("OK"))
 	)
 

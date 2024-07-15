@@ -14,7 +14,7 @@ extension LocationMapView {
 	// then thats the only place you can initialize that view model. You don't want
 	// to pass the view model all around your app.
 	
-	final class LocationMapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
+	@MainActor final class LocationMapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
 		// MARK: - Properties
 		@Published var alertItem: AlertItem?
 		@Published var region = MKCoordinateRegion(
@@ -51,20 +51,16 @@ extension LocationMapView {
 		
 		
 		func locationManager(_ manager: CLLocationManager, didFailWithError error: any Error) {
-			print("Did Fail With Error")
 			alertItem = AlertContext.didFailToGetLocation
 		}
 		
 		
 		func getLocations(for locationManager: LocationManager) {
-			CloudKitManager.shared.getLocations { result in
-				DispatchQueue.main.async {
-					switch result {
-						case .success(let locations):
-							locationManager.locations = locations
-						case .failure(_):
-							self.alertItem = AlertContext.unableToGetLocations
-					}
+			Task {
+				do {
+					locationManager.locations = try await CloudKitManager.shared.getLocations()
+				} catch {
+					alertItem = AlertContext.unableToGetLocations
 				}
 			}
 		}

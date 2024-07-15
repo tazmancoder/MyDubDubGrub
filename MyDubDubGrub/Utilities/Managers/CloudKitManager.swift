@@ -17,36 +17,25 @@ final class CloudKitManager {
 	// MARK: - Properties
 	var userRecord: CKRecord?
 	var profileRecordID: CKRecord.ID?
+	let container = CKContainer.default()
 	
 	// MARK: - Functions
-	func getUserRecord() {
+	func getUserRecord() async throws {
 		// Get our UserRecordID for the Container
-		CKContainer.default().fetchUserRecordID { recordID, error in
-			// Unwrap the recordID, make sure it has something in it
-			guard let recordID = recordID, error == nil else {
-				print(error!.localizedDescription)
-				return
-			}
-			
-			// Get UserRecord form the Public Database
-			CKContainer.default().publicCloudDatabase.fetch(withRecordID: recordID) { userRecord, error in
-				// Making sure userRecord has something in it
-				guard let userRecord = userRecord, error == nil else {
-					print(error!.localizedDescription)
-					return
-				}
-				
-				self.userRecord = userRecord
-				if let profileReference = userRecord[User.userProfile] as? CKRecord.Reference {
-					self.profileRecordID = profileReference.recordID
-				}
-			}
+		let recordID = try await container.userRecordID()
+		
+		// Get UserRecord form the Public Database
+		let record = try await container.publicCloudDatabase.record(for: recordID)
+		userRecord = record
+		
+		if let profileReference = record[User.userProfile] as? CKRecord.Reference {
+			profileRecordID = profileReference.recordID
 		}
 	}
 	
 	/// Will go out to iCloud and get all locations
 	/// - Parameter completed: Returns an array of DDGLocation
-	func getLocations(completed: @escaping (Result<[DDGLocation], Error>) -> Void) {
+	func getLocations() async throws -> [DDGLocation] {
 		let sortDescriptor = NSSortDescriptor(key: DDGLocation.kName, ascending: true)
 		
 		// Query the record type and give me all of them
@@ -54,37 +43,23 @@ final class CloudKitManager {
 		query.sortDescriptors = [sortDescriptor]
 		
 		// This is where we go get the data
-		CKContainer.default().publicCloudDatabase.perform(query, inZoneWith: nil) { records, error in
-			// Check to make sure error isn't nil otherwise fail
-			guard let records = records, error == nil else {
-				print(error!.localizedDescription)
-				completed(.failure(error!))
-				return
-			}
-			
-			// Convert records we get back to [DDGLocation]
-			let locations = records.map(DDGLocation.init)
-			completed(.success(locations))
-		}
+		let (matchedResults, _) = try await container.publicCloudDatabase.records(matching: query)
+		let records = matchedResults.compactMap { _, result in try? result.get() }
+		
+		// Convert records we get back to [DDGLocation]
+		return records.map(DDGLocation.init)
 	}
 	
-	func getCheckedInProfiles(for locationID: CKRecord.ID, completed: @escaping (Result<[DDGProfile], Error>) -> Void) {
+	func getCheckedInProfiles(for locationID: CKRecord.ID) async throws -> [DDGProfile] {
 		let reference = CKRecord.Reference(recordID: locationID, action: .none)
 		let predicate = NSPredicate(format: "isCheckedIn == %@", reference)
 		let query = CKQuery(recordType: RecordType.profile, predicate: predicate)
 		
 		// Now fetch the array of CKRecords that are checked in to the location
-		CKContainer.default().publicCloudDatabase.perform(query, inZoneWith: nil) { records, error in
-			// Check to make sure error isn't nil otherwise fail
-			guard let records = records, error == nil else {
-				print(error!.localizedDescription)
-				completed(.failure(error!))
-				return
-			}
-			
-			let profiles = records.map(DDGProfile.init)
-			completed(.success(profiles))
-		}
+		let (matchedResults, _) = try await container.publicCloudDatabase.records(matching: query)
+		let records = matchedResults.compactMap { _, result in try? result.get() }
+		
+		return records.map(DDGProfile.init)
 	}
 	
 	func getCheckedInProfilesDictionary(completed: @escaping (Result<[CKRecord.ID: [DDGProfile]], Error>) -> Void) {
