@@ -15,10 +15,16 @@ import MapKit
 struct LocationMapView: View {
 	// MARK: - Environment Objects
 	@EnvironmentObject private var locationManager: LocationManager
-	@Environment(\.sizeCategory) var sizeCategory
+	@Environment(\.dynamicTypeSize) var dynamicTypeSize
 	
 	// MARK: - State
 	@StateObject private var viewModel = LocationMapViewModel()
+	
+	init() {
+		let tabBarAppearance = UITabBarAppearance()
+		tabBarAppearance.backgroundEffect = UIBlurEffect(style: .systemUltraThinMaterial)
+		UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
+	}
 	
 	var body: some View {
 		ZStack(alignment: .top) {
@@ -33,7 +39,7 @@ struct LocationMapView: View {
 						}
 				}
 			}
-			.accentColor(Color.red)
+			.tint(.grubRed)
 			.ignoresSafeArea()
 			
 			LogoView(frameWidth: 125)
@@ -42,7 +48,7 @@ struct LocationMapView: View {
 		}
 		.sheet(isPresented: $viewModel.isShowingDetailView) {
 			NavigationView {
-				viewModel.createLocationDetailView(for: locationManager.selectedLocation!, in: sizeCategory)
+				viewModel.createLocationDetailView(for: locationManager.selectedLocation!, in: dynamicTypeSize)
 					.toolbar { Button(action: { viewModel.isShowingDetailView = false }, label: { XDismissButton() }) }
 			}
 		}

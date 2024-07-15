@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LocationListView: View {
 	// MARK: - Environment
-	@Environment(\.sizeCategory) var sizeCategory
+	@Environment(\.dynamicTypeSize) var dynamicTypeSize
 	@EnvironmentObject private var locationManager: LocationManager
 	
 	// MARK: - State
@@ -18,7 +18,7 @@ struct LocationListView: View {
     var body: some View {
 		List {
 			ForEach(locationManager.locations) { location in
-				NavigationLink(destination: viewModel.createLocationDetailView(for: location, in: sizeCategory)) {
+				NavigationLink(destination: viewModel.createLocationDetailView(for: location, in: dynamicTypeSize)) {
 					LocationCell(location: location, profiles: viewModel.checkedInProfiles[location.id, default: []])
 						.accessibilityElement(children: .ignore)
 						.accessibilityLabel(Text(viewModel.createVoiceOverSummary(for: location)))

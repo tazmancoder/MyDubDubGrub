@@ -7,9 +7,6 @@
 
 import SwiftUI
 
-// Alternative profile modal view for larger dynamic type sizes
-// We present this as a sheet when are sizeCategory gets into the
-// accessibility sizes
 struct ProfileSheetView: View {
 	var profile: DDGProfile
 	

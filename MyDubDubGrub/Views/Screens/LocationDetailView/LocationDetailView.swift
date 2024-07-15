@@ -10,7 +10,7 @@ import UIKit
 
 struct LocationDetailView: View {
 	// MARK: - Environment
-	@Environment(\.sizeCategory) var sizeCategory
+	@Environment(\.dynamicTypeSize) var dynamicTypeSize
 	
 	// MARK: - Properties
 	@ObservedObject var viewModel: LocationDetailViewModel
@@ -176,7 +176,6 @@ fileprivate struct FullScreenBlackTransparencyView: View {
 			.ignoresSafeArea()
 			.opacity(0.9)
 			.transition(AnyTransition.opacity.animation(.easeInOut(duration: 0.35)))
-			.animation(.easeOut)
 			.zIndex(1)
 			.accessibilityHidden(true)
 	}
@@ -184,7 +183,7 @@ fileprivate struct FullScreenBlackTransparencyView: View {
 
 fileprivate struct AvatarGridView: View {
 	// MARK: - Environment
-	@Environment(\.sizeCategory) var sizeCategory
+	@Environment(\.dynamicTypeSize) var dynamicTypeSize
 	
 	// MARK: - Properties
 	@ObservedObject var viewModel: LocationDetailViewModel
@@ -204,10 +203,12 @@ fileprivate struct AvatarGridView: View {
 				}
 			} else {
 				ScrollView(showsIndicators: false) {
-					LazyVGrid(columns: viewModel.determineColumns(for: sizeCategory), content: {
+					LazyVGrid(columns: viewModel.determineColumns(for: dynamicTypeSize), content: {
 						ForEach(viewModel.checkedInProfiles) { profile in
 							FirstNameAvatarView(profile: profile)
-								.onTapGesture { viewModel.show(profile, in: sizeCategory) }
+								.onTapGesture {
+									withAnimation { viewModel.show(profile, in: dynamicTypeSize) }
+								}
 						}
 					})
 				}

@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct OnBoardView: View {
-	@Environment(\.presentationMode) var presentationMode
+	@Environment(\.dismiss) var dismiss
 	
     var body: some View {
 		VStack {
 			HStack {
 				Spacer()
-				Button { presentationMode.wrappedValue.dismiss() } label: {
+				Button { dismiss() } label: {
 					XDismissButton()
 				}
 				.padding()
