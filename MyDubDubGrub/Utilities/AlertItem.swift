@@ -44,7 +44,19 @@ struct AlertContext {
 		message: Text("Location services are turned off on your phone. Please enable them in Settings > Privacy > Location Services."),
 		dismissButton: .default(Text("OK"))
 	)
-	
+
+	static let locationNotFound = AlertItem(
+		title: Text("Location Not Found"),
+		message: Text("Location was not found or retrieved. Please try again later."),
+		dismissButton: .default(Text("OK"))
+	)
+
+	static let didFailToGetLocation = AlertItem(
+		title: Text("Location Failed"),
+		message: Text("Location services was unable to retrieve your current location. Please try again later."),
+		dismissButton: .default(Text("OK"))
+	)
+
 	static let checkedInCount = AlertItem(
 		title: Text("Server Error"),
 		message: Text("Unable to get the number of people checked into each location. Please check your internet connection and try again."),

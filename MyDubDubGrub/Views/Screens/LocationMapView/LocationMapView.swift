@@ -11,6 +11,7 @@
 
 import SwiftUI
 import MapKit
+import CoreLocationUI
 
 struct LocationMapView: View {
 	// MARK: - Environment Objects
@@ -51,6 +52,17 @@ struct LocationMapView: View {
 				viewModel.createLocationDetailView(for: locationManager.selectedLocation!, in: dynamicTypeSize)
 					.toolbar { Button(action: { viewModel.isShowingDetailView = false }, label: { XDismissButton() }) }
 			}
+		}
+		.overlay(alignment: .bottomLeading) {
+			LocationButton(.currentLocation) {
+				viewModel.requestAllowOnceLocationPermission()
+			}
+			.foregroundColor(.white)
+			.symbolVariant(.fill)
+			.tint(.grubRed)
+			.labelStyle(.iconOnly)
+			.clipShape(Circle())
+			.padding(EdgeInsets(top: 0, leading: 20, bottom: 40, trailing: 0))
 		}
 		.alert(item: $viewModel.alertItem) { $0.alert }
 		.onAppear {

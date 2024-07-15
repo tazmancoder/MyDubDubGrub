@@ -14,7 +14,7 @@ extension LocationMapView {
 	// then thats the only place you can initialize that view model. You don't want
 	// to pass the view model all around your app.
 	
-	final class LocationMapViewModel: ObservableObject {
+	final class LocationMapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
 		// MARK: - Properties
 		@Published var alertItem: AlertItem?
 		@Published var region = MKCoordinateRegion(
@@ -23,6 +23,37 @@ extension LocationMapView {
 		)
 		@Published var isShowingDetailView = false
 		@Published var checkedInProfiles: [CKRecord.ID: Int] = [:]
+		
+		
+		let deviceLocationManager = CLLocationManager()
+		
+		override init() {
+			super.init()
+			deviceLocationManager.delegate = self
+		}
+		
+		
+		func requestAllowOnceLocationPermission() {
+			deviceLocationManager.requestLocation()
+		}
+		
+		
+		func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+			guard let currentLocation = locations.last else {
+				alertItem = AlertContext.locationNotFound
+				return
+			}
+			
+			withAnimation {
+				region = MKCoordinateRegion(center: currentLocation.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+			}
+		}
+		
+		
+		func locationManager(_ manager: CLLocationManager, didFailWithError error: any Error) {
+			print("Did Fail With Error")
+			alertItem = AlertContext.didFailToGetLocation
+		}
 		
 		
 		func getLocations(for locationManager: LocationManager) {
