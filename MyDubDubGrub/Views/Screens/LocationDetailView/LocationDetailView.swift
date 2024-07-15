@@ -34,6 +34,9 @@ struct LocationDetailView: View {
 				
 				// Shows the list of Avatars checked into this location
 				AvatarGridView(viewModel: viewModel)
+				
+				// This just pushes everything to the top
+				Spacer()
 			}
 			.accessibilityHidden(viewModel.isShowingProfileModal)
 
