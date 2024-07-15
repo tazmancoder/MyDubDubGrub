@@ -46,7 +46,7 @@ struct LocationDetailView: View {
 				ProfileModalView(profile: viewModel.selectedProfile!, isShowingProfileModal: $viewModel.isShowingProfileModal)
 			}
 		}
-		.onAppear {
+		.task {
 			viewModel.getCheckedInProfiles()
 			viewModel.getCheckedInStatus()
 		}
