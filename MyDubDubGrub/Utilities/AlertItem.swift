@@ -12,6 +12,11 @@ struct AlertItem: Identifiable {
 	let title: Text
 	let message: Text
 	let dismissButton: Alert.Button
+	
+	// MARK: - Computed Property
+	var alert: Alert {
+		Alert(title: title, message: message, dismissButton: dismissButton)
+	}
 }
 
 struct AlertContext {
@@ -40,6 +45,19 @@ struct AlertContext {
 		dismissButton: .default(Text("OK"))
 	)
 	
+	static let checkedInCount = AlertItem(
+		title: Text("Server Error"),
+		message: Text("Unable to get the number of people checked into each location. Please check your internet connection and try again."),
+		dismissButton: .default(Text("OK"))
+	)
+	
+	// MARK: - LocationListView Errors
+	static let unableToAllGetCheckedInProfiles = AlertItem(
+		title: Text("Server Error"),
+		message: Text("We are unable to get users checked into this location at this time.\nPlease try again."),
+		dismissButton: .default(Text("OK"))
+	)
+
 	// MARK: - ProfileView Errors
 	static let invalidProfile = AlertItem(
 		title: Text("Profile Incomplete"),

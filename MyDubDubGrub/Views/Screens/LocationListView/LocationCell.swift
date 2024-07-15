@@ -12,9 +12,9 @@ struct LocationCell: View {
 	var location: DDGLocation
 	var profiles: [DDGProfile]
 	
-    var body: some View {
+	var body: some View {
 		HStack {
-			Image(uiImage: location.createSquareImage())
+			Image(uiImage: location.squareImage)
 				.resizable()
 				.scaledToFit()
 				.frame(width: 70, height: 70)
@@ -36,9 +36,9 @@ struct LocationCell: View {
 					HStack {
 						ForEach(profiles.indices, id: \.self) { index in
 							if index <= 3 {
-								AvatarView(image: profiles[index].createAvatarImage(), size: 30)
+								AvatarView(image: profiles[index].avatarImage, size: 30)
 							} else if index == 4 {
-								AdditionalProfileView(number: profiles.count - 4)
+								AdditionalProfileView(number: min(profiles.count - 4, 99))
 							}
 						}
 					}
@@ -53,7 +53,8 @@ struct LocationCell: View {
 	LocationCell(location: DDGLocation(record: MockData.location), profiles: [])
 }
 
-struct AdditionalProfileView: View {
+
+fileprivate struct AdditionalProfileView: View {
 	var number: Int
 	
 	var body: some View {

@@ -56,16 +56,14 @@ final class CloudKitManager {
 		// This is where we go get the data
 		CKContainer.default().publicCloudDatabase.perform(query, inZoneWith: nil) { records, error in
 			// Check to make sure error isn't nil otherwise fail
-			guard error == nil else {
+			guard let records = records, error == nil else {
+				print(error!.localizedDescription)
 				completed(.failure(error!))
 				return
 			}
 			
-			// Check to make sure we have records
-			guard let records = records else { return }
-			
 			// Convert records we get back to [DDGLocation]
-			let locations = records.map { $0.convertToDDGLocation() }
+			let locations = records.map(DDGLocation.init)
 			completed(.success(locations))
 		}
 	}
@@ -84,7 +82,7 @@ final class CloudKitManager {
 				return
 			}
 			
-			let profiles = records.map { $0.convertToDDGProfile() }
+			let profiles = records.map(DDGProfile.init)
 			completed(.success(profiles))
 		}
 	}
@@ -93,19 +91,20 @@ final class CloudKitManager {
 		let predicate = NSPredicate(format: "isCheckedInNilCheck == 1")
 		let query = CKQuery(recordType: RecordType.profile, predicate: predicate)
 		let operation = CKQueryOperation(query: query)
+		
 		// This is how you could limit the scope of what you actual download from CloudKit
 //		operation.desiredKeys = [DDGProfile.kIsCheckedIn, DDGProfile.kAvatar]
 		
 		var checkedInProfiles: [CKRecord.ID: [DDGProfile]] = [:]
 		
-		// This operation fires off has it receives the records.
+		// This operation fires off as it receives the records.
 		// Build our dictionary of [CKRecord.ID: [DDGProfile]]
 		operation.recordFetchedBlock = { record in
 			// Create a DDGProfile
 			let profile = DDGProfile(record: record)
 			
 			// Check to make sure we have a reference to a location
-			guard let locationReference = profile.isCheckedIn else { return }
+			guard let locationReference = record[DDGProfile.kIsCheckedIn] as? CKRecord.Reference else { return }
 			
 			// Now check to see if we have an array with this record id, if not add an empty
 			// array otherwise append the profile to that location references recordID.
@@ -126,14 +125,82 @@ final class CloudKitManager {
 				return
 			}
 			
-			// Handle the cursor in later video
-			
-			completed(.success(checkedInProfiles))
+			if let cursor = cursor {
+				self.continueWithCheckedInProfilesDict(cursor: cursor, dictionary: checkedInProfiles) { result in
+					switch result {
+						case .success(let profiles):
+							completed(.success(profiles))
+						case .failure(let error):
+							completed(.failure(error))
+					}
+				}
+			} else {
+				completed(.success(checkedInProfiles))
+			}
 		}
 		
 		// Now add the operation so that it will fire off
 		CKContainer.default().publicCloudDatabase.add(operation)
 	}
+	
+	
+	/// Will continue to fetch records as long as the cursor has a value
+	/// - Parameters:
+	///   - cursor: position of the next batch of records to fetch
+	///   - dictionary: The dictionary we are trying to build
+	///   - completed: The return value we get back when done
+	func continueWithCheckedInProfilesDict(cursor: CKQueryOperation.Cursor,
+										   dictionary: [CKRecord.ID: [DDGProfile]],
+										   completed: @escaping (Result<[CKRecord.ID: [DDGProfile]], Error>) -> Void) {
+		var checkedInProfiles = dictionary
+		let operation = CKQueryOperation(cursor: cursor)
+		
+		// This operation fires off as it receives the records.
+		// Build our dictionary of [CKRecord.ID: [DDGProfile]]
+		operation.recordFetchedBlock = { record in
+			// Create a DDGProfile
+			let profile = DDGProfile(record: record)
+			
+			// Check to make sure we have a reference to a location
+			guard let locationReference = record[DDGProfile.kIsCheckedIn] as? CKRecord.Reference else { return }
+			
+			// Now check to see if we have an array with this record id, if not add an empty
+			// array otherwise append the profile to that location references recordID.
+			checkedInProfiles[locationReference.recordID, default: []].append(profile)
+		}
+		
+		// When everything is done and we've downloaded all records
+		operation.queryCompletionBlock = { cursor, error in
+			// WHAT IS THE CURSOR?
+			// The cursor above represents you place in the list of all the records your downloading
+			// Basically if you've got a 1000 records to download and CloudKit determines it can
+			// return 100 records to you, then the cursor will be set at record 101 and when it down-
+			// loads again it will pick up at record 101 and download whatever limit it can at that
+			// time and then reset the cursor to that place in line.
+			guard error == nil else {
+				completed(.failure(error!))
+				return
+			}
+
+			// Nil check on cursor
+			if let cursor = cursor {
+				self.continueWithCheckedInProfilesDict(cursor: cursor, dictionary: checkedInProfiles) { result in
+					switch result {
+						case .success(let profiles):
+							completed(.success(profiles))
+						case .failure(let error):
+							completed(.failure(error))
+					}
+				}
+			} else {
+				completed(.success(checkedInProfiles))
+			}
+		}
+		
+		// Now add the operation so that it will fire off
+		CKContainer.default().publicCloudDatabase.add(operation)
+	}
+	
 	
 	func getCheckedInProfilesCount(completed: @escaping (Result<[CKRecord.ID: Int], Error>) -> Void) {
 		let predicate = NSPredicate(format: "isCheckedInNilCheck == 1")

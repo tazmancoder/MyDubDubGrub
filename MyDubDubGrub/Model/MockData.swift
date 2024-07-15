@@ -49,6 +49,19 @@ struct MockData {
 		return record
 	}
 	
+	static var chipotle: CKRecord {
+		let record                          = CKRecord(recordType: RecordType.location,
+													   recordID: CKRecord.ID(recordName: "0AF6129C-922E-4525-B590-F4575B8A41D9"))
+		record[DDGLocation.kName]           = "Chipotle"
+		record[DDGLocation.kAddress]        = "1 S Market St Ste 40"
+		record[DDGLocation.kDescription]    = "Our local San Jose One South Market Chipotle Mexican Grill is cultivating a better world by serving responsibly sourced, classically-cooked, real food."
+		record[DDGLocation.kWebsiteURL]     = "https://locations.chipotle.com/ca/san-jose/1-s-market-st"
+		record[DDGLocation.kLocation]       = CLLocation(latitude: 37.334967, longitude: -121.892566)
+		record[DDGLocation.kPhoneNumber]    = "408-938-0919"
+		
+		return record
+	}
+	
 	// MARK: - Profile Data
 	static var profile: CKRecord {
 		let record = CKRecord(recordType: RecordType.profile)
@@ -56,8 +69,8 @@ struct MockData {
 		record[DDGProfile.kAvatar] = PlaceHolderImage.avatar.convertToCKAsset()
 		record[DDGProfile.kBio] = "Indie iOS developer crafting unique and innovative productivity apps for enhanced efficiency."
 		record[DDGProfile.kCompanyName] = "Apple Enthusiast & Indie Dev"
-		record[DDGProfile.kFirstName] = "Mark"
-		record[DDGProfile.kLastName] = "Perryman"
+		record[DDGProfile.kFirstName] = "SuperlongfirstName"
+		record[DDGProfile.kLastName] = "VerysuperLonglastname"
 		record[DDGProfile.kIsCheckedIn] = nil
 		
 		return record

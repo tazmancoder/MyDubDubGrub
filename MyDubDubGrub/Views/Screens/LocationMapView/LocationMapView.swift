@@ -15,15 +15,18 @@ import MapKit
 struct LocationMapView: View {
 	// MARK: - Environment Objects
 	@EnvironmentObject private var locationManager: LocationManager
+	@Environment(\.sizeCategory) var sizeCategory
 	
 	// MARK: - State
 	@StateObject private var viewModel = LocationMapViewModel()
 	
-    var body: some View {
-		ZStack {
+	var body: some View {
+		ZStack(alignment: .top) {
+			
 			Map(coordinateRegion: $viewModel.region, showsUserLocation: true, annotationItems: locationManager.locations) { location in
 				MapAnnotation(coordinate: location.location.coordinate, anchorPoint: CGPoint(x: 0.5, y: 0.75)) {
 					DDGAnnotation(location: location, number: viewModel.checkedInProfiles[location.id, default: 0])
+						.accessibilityLabel(Text(viewModel.createMapViewVoiceOverSummary(for: location)))
 						.onTapGesture {
 							locationManager.selectedLocation = location
 							viewModel.isShowingDetailView = true
@@ -33,35 +36,24 @@ struct LocationMapView: View {
 			.accentColor(Color.red)
 			.ignoresSafeArea()
 			
-			VStack {
-				LogoView(frameWidth: 125)
-					.shadow(radius: 10)
-				Spacer()
-			}
+			LogoView(frameWidth: 125)
+				.shadow(radius: 10)
+				.accessibilityHidden(true)
 		}
 		.sheet(isPresented: $viewModel.isShowingDetailView) {
 			NavigationView {
-				LocationDetailView(viewModel: LocationDetailViewModel(location: locationManager.selectedLocation!))
-					.toolbar {
-						Button(action: { viewModel.isShowingDetailView = false }, label: {
-							XDismissButton()
-						})
-					}
+				viewModel.createLocationDetailView(for: locationManager.selectedLocation!, in: sizeCategory)
+					.toolbar { Button(action: { viewModel.isShowingDetailView = false }, label: { XDismissButton() }) }
 			}
 		}
-		.alert(item: $viewModel.alertItem, content: { alertItem in
-			Alert(title: alertItem.title, message: alertItem.message, dismissButton: alertItem.dismissButton)
-		})
-		.onAppear {			
-			if locationManager.locations.isEmpty {
-				viewModel.getLocations(for: locationManager)
-			}
-			
+		.alert(item: $viewModel.alertItem) { $0.alert }
+		.onAppear {
+			if locationManager.locations.isEmpty { viewModel.getLocations(for: locationManager) }
 			viewModel.getCheckedInCounts()
 		}
-    }
+	}
 }
 
-//#Preview {
-//    LocationMapView()
-//}
+#Preview {
+	LocationMapView().environmentObject(LocationManager())
+}
