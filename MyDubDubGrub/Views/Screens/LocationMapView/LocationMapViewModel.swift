@@ -14,7 +14,7 @@ extension LocationMapView {
 	// then thats the only place you can initialize that view model. You don't want
 	// to pass the view model all around your app.
 	
-	@MainActor final class LocationMapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
+	final class LocationMapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
 		// MARK: - Properties
 		@Published var alertItem: AlertItem?
 		@Published var region = MKCoordinateRegion(
@@ -55,6 +55,7 @@ extension LocationMapView {
 		}
 		
 		
+		@MainActor 
 		func getLocations(for locationManager: LocationManager) {
 			Task {
 				do {
@@ -66,6 +67,7 @@ extension LocationMapView {
 		}
 		
 		
+		@MainActor 
 		func getCheckedInCounts() {
 			Task {
 				do {
@@ -74,16 +76,6 @@ extension LocationMapView {
 					alertItem = AlertContext.checkedInCount
 				}
 			}
-//			CloudKitManager.shared.getCheckedInProfilesCount { result in
-//				DispatchQueue.main.async { [self] in
-//					switch result {
-//						case .success(let checkedInProfiles):
-//							self.checkedInProfiles = checkedInProfiles
-//						case .failure(_):
-//							alertItem = AlertContext.checkedInCount
-//					}
-//				}
-//			}
 		}
 		
 		
@@ -95,8 +87,8 @@ extension LocationMapView {
 		}
 		
 		
-		@ViewBuilder
-		func createLocationDetailView(for location: DDGLocation, in dynamicTypeSize: DynamicTypeSize) -> some View {
+		@MainActor
+		@ViewBuilder func createLocationDetailView(for location: DDGLocation, in dynamicTypeSize: DynamicTypeSize) -> some View {
 			if dynamicTypeSize >= .accessibility3 {
 				LocationDetailView(viewModel: LocationDetailViewModel(location: location)).embedInScrollView()
 			} else {

@@ -44,12 +44,12 @@ struct DDGLocation: Identifiable {
 	
 	// MARK: - Functions
 	var squareImage: UIImage {
-		guard let asset = squareAsset else { return PlaceHolderImage.square }
-		return asset.convertToUIImage(in: .square)
+		guard let squareAsset else { return PlaceHolderImage.square }
+		return squareAsset.convertToUIImage(in: .square)
 	}
 	
 	var bannerImage: UIImage {
-		guard let asset = bannerAsset else { return PlaceHolderImage.banner }
-		return asset.convertToUIImage(in: .banner)
+		guard let bannerAsset else { return PlaceHolderImage.banner }
+		return bannerAsset.convertToUIImage(in: .banner)
 	}
 }
