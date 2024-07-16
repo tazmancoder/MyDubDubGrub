@@ -51,7 +51,7 @@ struct LocationDetailView: View {
 			viewModel.getCheckedInStatus()
 		}
 		.sheet(isPresented: $viewModel.isShowingProfileSheet) {
-			NavigationView {
+			NavigationStack {
 				ProfileSheetView(profile: viewModel.selectedProfile!)
 					.toolbar { Button(action: { viewModel.isShowingProfileSheet = false }, label: { XDismissButton() }) }
 			}
@@ -63,7 +63,7 @@ struct LocationDetailView: View {
 }
 
 #Preview {
-	NavigationView {
+	NavigationStack {
 		LocationDetailView(
 			viewModel: LocationDetailViewModel(location: DDGLocation(record: MockData.chipotle))
 		)

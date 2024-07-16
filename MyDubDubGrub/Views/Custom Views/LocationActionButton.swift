@@ -14,13 +14,19 @@ struct LocationActionButton: View {
     var body: some View {
 		ZStack {
 			Circle()
-				.foregroundColor(imageColor)
+				.fill(
+					Color.brandPrimary.gradient
+						.shadow(.drop(color: .black.opacity(0.8), radius: 5))
+				)
 				.frame(width: 60, height: 60)
 			Image(systemName: imageName)
 				.resizable()
 				.scaledToFit()
 				.frame(width: 22, height: 22)
-				.foregroundColor(.white)
+				.foregroundStyle(
+					.white
+						.shadow(.drop(color: .black.opacity(0.8), radius: 5))
+				)
 		}
     }
 }

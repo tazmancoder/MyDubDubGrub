@@ -16,10 +16,10 @@ struct AppTabView: View {
 			LocationMapView()
 				.tabItem { Label( title: { Text("Map") }, icon: { Image(systemName: "map") }) }
 			
-			NavigationView { LocationListView() }
+			NavigationStack { LocationListView() }
 				.tabItem { Label(title: { Text("Locations") }, icon: { Image(systemName: "building") }) }
 			
-			NavigationView { ProfileView() }
+			NavigationStack { ProfileView() }
 				.tabItem { Label(title: { Text("Profile") }, icon: { Image(systemName: "person") }) }
 		}
 		.task {

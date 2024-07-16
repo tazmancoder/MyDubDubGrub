@@ -48,7 +48,7 @@ struct LocationMapView: View {
 				.accessibilityHidden(true)
 		}
 		.sheet(isPresented: $viewModel.isShowingDetailView) {
-			NavigationView {
+			NavigationStack {
 				viewModel.createLocationDetailView(for: locationManager.selectedLocation!, in: dynamicTypeSize)
 					.toolbar { Button(action: { viewModel.isShowingDetailView = false }, label: { XDismissButton() }) }
 			}
