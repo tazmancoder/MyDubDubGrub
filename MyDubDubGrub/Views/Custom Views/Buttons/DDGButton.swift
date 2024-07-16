@@ -15,7 +15,7 @@ struct DDGButton: View {
 		Text(title)
 			.bold()
 			.frame(width: 280, height: 44)
-			.background(Color.brandPrimary)
+			.background(Color.brandPrimary.gradient)
 			.foregroundColor(.white)
 			.cornerRadius(8)
     }

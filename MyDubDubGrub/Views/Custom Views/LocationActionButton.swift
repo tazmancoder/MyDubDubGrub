@@ -16,7 +16,7 @@ struct LocationActionButton: View {
 			Circle()
 				.fill(
 					Color.brandPrimary.gradient
-						.shadow(.drop(color: .black.opacity(0.8), radius: 5))
+						.shadow(.drop(color: .black.opacity(0.8), radius: 3))
 				)
 				.frame(width: 60, height: 60)
 			Image(systemName: imageName)
@@ -25,7 +25,7 @@ struct LocationActionButton: View {
 				.frame(width: 22, height: 22)
 				.foregroundStyle(
 					.white
-						.shadow(.drop(color: .black.opacity(0.8), radius: 5))
+						.shadow(.drop(color: .black.opacity(0.8), radius: 2))
 				)
 		}
     }

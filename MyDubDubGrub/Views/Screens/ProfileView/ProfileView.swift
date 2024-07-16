@@ -66,8 +66,15 @@ struct ProfileView: View {
 						}
 					}
 					
-					BioTextEditor(text: $viewModel.bio)
+//					BioTextEditor(text: $viewModel.bio)
+// I think I'm going to leave this way of entering the bio. But I will leave the code for the old
+// TextEditor.
+					
+					TextField("Enter your bio", text: $viewModel.bio, axis: .vertical)
+						.textFieldStyle(.roundedBorder)
+						.lineLimit(3...12)
 						.focused($focusTextField, equals: .bio)
+						.accessibilityHint(Text("This text field is for your bio and has a 100 character maximum."))
 				}
 				.padding(.horizontal)
 				
