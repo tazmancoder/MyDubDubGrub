@@ -19,7 +19,7 @@ struct LocationMapView: View {
 	@Environment(\.dynamicTypeSize) var dynamicTypeSize
 	
 	// MARK: - State
-	@StateObject private var viewModel = LocationMapViewModel()
+	@State private var viewModel = LocationMapViewModel()
 	
 	var body: some View {
 		ZStack(alignment: .top) {

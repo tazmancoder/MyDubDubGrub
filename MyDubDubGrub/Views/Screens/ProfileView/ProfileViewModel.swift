@@ -7,27 +7,31 @@
 
 import Foundation
 import CloudKit
+import Observation
 
 enum ProfileContext { case create, update }
 
 extension ProfileView {
 	
-	@MainActor final class ProfileViewModel: ObservableObject {
+	@Observable
+	@MainActor final class ProfileViewModel {
 		// MARK: - Properties
-		@Published var firstName 			= ""
-		@Published var lastName 			= ""
-		@Published var companyName 			= ""
-		@Published var bio 					= ""
-		@Published var avatar 				= PlaceHolderImage.avatar
-		@Published var isShowingPhotoPicker = false
-		@Published var isLoading 			= false
-		@Published var isCheckedIn 			= false
-		@Published var alertItem: AlertItem?
+		var firstName 				= ""
+		var lastName 				= ""
+		var companyName 			= ""
+		var bio 					= ""
+		var avatar 					= PlaceHolderImage.avatar
+		var isShowingPhotoPicker 	= false
+		var isLoading 				= false
+		var isCheckedIn 			= false
+		var alertItem: AlertItem?
 		
+		@ObservationIgnored
 		private var existingProfileRecord: CKRecord? {
 			didSet { profileContext = .update }
 		}
 		
+		@ObservationIgnored
 		var profileContext: ProfileContext = .create
 		var buttonTitle: String { profileContext == .create ? "Create Profile" : "Update Profile" }
 		
@@ -119,32 +123,6 @@ extension ProfileView {
 					alertItem = AlertContext.unableToGetProfile
 				}
 			}
-//			
-//			CloudKitManager.shared.fetchRecord(with: profileRecordID) { result in
-//				DispatchQueue.main.async { [self] in
-//					hideLoadingView()
-//					
-//					switch result {
-//						case .success(let record):
-//							// Store away the record we get back so we can edit it later
-//							existingProfileRecord = record
-//							
-//							// Convert record into DDGProfile so we can assign the properties
-//							// to show the user
-//							let profile = DDGProfile(record: record)
-//							
-//							firstName = profile.firstName
-//							lastName = profile.lastName
-//							companyName = profile.companyName
-//							bio = profile.bio
-//							avatar = profile.avatarImage
-//							
-//						case .failure(_):
-//							alertItem = AlertContext.unableToGetProfile
-//							break
-//					}
-//				}
-//			}
 		}
 		
 		// MARK: - Private Functions

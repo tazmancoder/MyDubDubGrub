@@ -13,7 +13,7 @@ struct LocationListView: View {
 	@EnvironmentObject private var locationManager: LocationManager
 	
 	// MARK: - State
-	@StateObject private var viewModel = LocationListViewModel()
+	@State private var viewModel = LocationListViewModel()
 	
     var body: some View {
 		List {

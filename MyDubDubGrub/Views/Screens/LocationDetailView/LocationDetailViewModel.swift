@@ -8,21 +8,23 @@
 import SwiftUI
 import MapKit
 import CloudKit
+import Observation
 
 enum CheckInStatus { case checkedIn, checkedOut }
 
-@MainActor final class LocationDetailViewModel: ObservableObject {
+@Observable
+@MainActor final class LocationDetailViewModel {
 	// MARK: - Published Properties
-	@Published var isCheckedIn = false
-	@Published var isLoading = false
-	@Published var checkedInProfiles: [DDGProfile] = []
-	@Published var isShowingProfileModal = false
-	@Published var isShowingProfileSheet = false
-	@Published var alertItem: AlertItem? = nil
+	var isCheckedIn = false
+	var isLoading = false
+	var checkedInProfiles: [DDGProfile] = []
+	var isShowingProfileModal = false
+	var isShowingProfileSheet = false
+	var alertItem: AlertItem? = nil
 	
 	// MARK: - Properties
-	var location: DDGLocation
-	var selectedProfile: DDGProfile?
+	@ObservationIgnored var location: DDGLocation
+	@ObservationIgnored var selectedProfile: DDGProfile?
 	var buttonColor: Color { isCheckedIn ? .grubRed : .brandPrimary }
 	var buttonImageTitle: String { isCheckedIn ? "person.fill.xmark" : "person.fill.checkmark" }
 
@@ -133,18 +135,6 @@ enum CheckInStatus { case checkedIn, checkedOut }
 				alertItem = AlertContext.unableToGetCheckedInProfiles
 			}
 		}
-//		CloudKitManager.shared.getCheckedInProfiles(for: location.id) { result in
-//			DispatchQueue.main.async { [self] in
-//				switch result {
-//					case .success(let profiles):
-//						checkedInProfiles = profiles
-//					case .failure(_):
-//						alertItem = AlertContext.unableToGetCheckedInProfiles
-//				}
-//				
-//				hideLoadingView()
-//			}
-//		}
 	}
 	
 	

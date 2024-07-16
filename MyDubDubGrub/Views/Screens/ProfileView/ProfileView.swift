@@ -8,9 +8,10 @@
 import SwiftUI
 import CloudKit
 
+@MainActor
 struct ProfileView: View {
 	// MARK: - State Object
-	@StateObject private var viewModel = ProfileViewModel()
+	@State private var viewModel = ProfileViewModel()
 	@FocusState private var focusTextField: ProfileTextField?
 	
 	enum ProfileTextField {

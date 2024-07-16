@@ -13,7 +13,7 @@ struct LocationDetailView: View {
 	@Environment(\.dynamicTypeSize) var dynamicTypeSize
 	
 	// MARK: - Properties
-	@ObservedObject var viewModel: LocationDetailViewModel
+	@Bindable var viewModel: LocationDetailViewModel
 	
 	var body: some View {
 		ZStack {
@@ -115,7 +115,7 @@ fileprivate struct DescriptionView: View {
 
 
 fileprivate struct ActionButtonHStack: View {
-	@ObservedObject var viewModel: LocationDetailViewModel
+	var viewModel: LocationDetailViewModel
 	
 	var body: some View {
 		HStack(spacing: 20) {
@@ -186,7 +186,7 @@ fileprivate struct AvatarGridView: View {
 	@Environment(\.dynamicTypeSize) var dynamicTypeSize
 	
 	// MARK: - Properties
-	@ObservedObject var viewModel: LocationDetailViewModel
+	var viewModel: LocationDetailViewModel
 	
 	var body: some View {
 		ZStack {

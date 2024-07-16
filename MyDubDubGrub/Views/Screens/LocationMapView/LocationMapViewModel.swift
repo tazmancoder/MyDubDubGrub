@@ -8,22 +8,23 @@
 import MapKit
 import CloudKit
 import SwiftUI
+import Observation
 
 extension LocationMapView {
 	// If you put your view models inside an extension of the view it's meant for
 	// then thats the only place you can initialize that view model. You don't want
 	// to pass the view model all around your app.
 	
-	final class LocationMapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
+	@Observable
+	final class LocationMapViewModel: NSObject, CLLocationManagerDelegate {
 		// MARK: - Properties
-		@Published var alertItem: AlertItem?
-		@Published var region = MKCoordinateRegion(
+		var alertItem: AlertItem?
+		var isShowingDetailView = false
+		var checkedInProfiles: [CKRecord.ID: Int] = [:]
+		var region = MKCoordinateRegion(
 			center: CLLocationCoordinate2D(latitude: 37.331516, longitude: -121.891054),
 			span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
 		)
-		@Published var isShowingDetailView = false
-		@Published var checkedInProfiles: [CKRecord.ID: Int] = [:]
-		
 		
 		let deviceLocationManager = CLLocationManager()
 		
