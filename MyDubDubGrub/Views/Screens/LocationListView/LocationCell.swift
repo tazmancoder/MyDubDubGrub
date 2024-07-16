@@ -62,7 +62,7 @@ fileprivate struct AdditionalProfileView: View {
 			.font(.system(size: 11, weight: .semibold))
 			.frame(width: 30, height: 30)
 			.foregroundColor(.white)
-			.background(Color.brandPrimary)
+			.background(.brandPrimary)
 			.clipShape(Circle())
 	}
 }

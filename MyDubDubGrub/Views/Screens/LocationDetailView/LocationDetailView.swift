@@ -191,16 +191,11 @@ fileprivate struct AvatarGridView: View {
 	var body: some View {
 		ZStack {
 			if viewModel.checkedInProfiles.isEmpty {
-				if #available(iOS 17.0, *) {
-					ContentUnavailableView(
-						"Nobody's Here",
-						systemImage: "person.2.slash.fill",
-						description: Text("Invite fellow developers to join you at this restaurant.")
-					)
-				} else {
-					// Fallback on earlier versions
-					GridEmptyStateTextView()
-				}
+				ContentUnavailableView(
+					"Nobody's Here",
+					systemImage: "person.2.slash.fill",
+					description: Text("Invite fellow developers to join you at this restaurant.")
+				)
 			} else {
 				ScrollView(showsIndicators: false) {
 					LazyVGrid(columns: viewModel.determineColumns(for: dynamicTypeSize), content: {

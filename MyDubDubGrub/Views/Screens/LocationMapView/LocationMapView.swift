@@ -21,12 +21,6 @@ struct LocationMapView: View {
 	// MARK: - State
 	@StateObject private var viewModel = LocationMapViewModel()
 	
-	init() {
-		let tabBarAppearance = UITabBarAppearance()
-		tabBarAppearance.backgroundEffect = UIBlurEffect(style: .systemUltraThinMaterial)
-		UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
-	}
-	
 	var body: some View {
 		ZStack(alignment: .top) {
 			
@@ -72,6 +66,12 @@ struct LocationMapView: View {
 	}
 }
 
-#Preview {
+#Preview("Light Mode") {
 	LocationMapView().environmentObject(LocationManager())
+}
+
+#Preview("Dark Mode") {
+	LocationMapView()
+		.environmentObject(LocationManager())
+		.preferredColorScheme(.dark)
 }

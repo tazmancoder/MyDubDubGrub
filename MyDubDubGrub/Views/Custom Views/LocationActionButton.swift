@@ -15,7 +15,7 @@ struct LocationActionButton: View {
 		ZStack {
 			Circle()
 				.fill(
-					Color.brandPrimary.gradient
+					.brandPrimary.gradient
 						.shadow(.drop(color: .black.opacity(0.8), radius: 3))
 				)
 				.frame(width: 60, height: 60)

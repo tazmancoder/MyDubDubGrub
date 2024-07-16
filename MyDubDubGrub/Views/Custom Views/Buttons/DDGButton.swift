@@ -15,12 +15,22 @@ struct DDGButton: View {
 		Text(title)
 			.bold()
 			.frame(width: 280, height: 44)
-			.background(Color.brandPrimary.gradient)
+			.background(.brandPrimary.gradient)
 			.foregroundColor(.white)
 			.cornerRadius(8)
     }
 }
 
-#Preview {
+#Preview("Light Mode") {
 	DDGButton(title: "Create Profile")
 }
+
+#Preview("Dark Mode") {
+	DDGButton(title: "Create Profile")
+		.preferredColorScheme(.dark)
+}
+
+//#Preview("Dark Landscape", traits: .landscapeRight) {
+//	DDGButton(title: "Create Profile")
+//		.preferredColorScheme(.dark)
+//}

@@ -22,9 +22,9 @@ enum RecordType {
 }
 
 enum PlaceHolderImage {
-	static let avatar = UIImage(named: "default-avatar")!
-	static let banner = UIImage(named: "default-banner-asset")!
-	static let square = UIImage(named: "default-square-asset")!
+	static let avatar = UIImage(resource: .defaultAvatar)
+	static let banner = UIImage(resource: .defaultBannerAsset)
+	static let square = UIImage(resource: .defaultSquareAsset)
 }
 
 enum ImageDimension {
